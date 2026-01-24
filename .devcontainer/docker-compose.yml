@@ -17,6 +17,8 @@ services:
     security_opt:
       - seccomp:unconfined
     hostname: devcontainer
+    ports:
+      - 8000:8000
     ulimits:
       nofile:
         soft: 65535
