@@ -72,7 +72,7 @@ func New(options Options) *slog.Logger {
 	}
 
 	// When logging in a conainer, use json output and disable log file, otherwise, use colourful output.
-	if os.Getenv(config.ConfigEnvPrefix+"CONTAINER") == "1" {
+	if os.Getenv(config.EnvPrefix+"CONTAINER") == "1" {
 		logFile = ""
 		handlers = append(handlers,
 			slogjson.NewHandler(os.Stderr, containerConsoleOptions(Level)),

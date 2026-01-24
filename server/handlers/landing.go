@@ -3,24 +3,28 @@
 
 package handlers
 
-import "net/http"
+import (
+	"net/http"
 
-type LandingPage struct{}
+	"github.com/a-h/templ"
+	"github.com/immanent-tech/www-immanent-tech/web/templates"
+)
+
+type LandingPage struct {
+	template templ.Component
+}
 
 func NewLandingPage() http.HandlerFunc {
-	page := &LandingPage{}
-	return page.ServeHTTP
-}
-
-func (h *LandingPage) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case http.MethodGet:
-		h.Get(w, r)
-	default:
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	page := &LandingPage{
+		template: templates.Page(templates.LandingPage()),
 	}
+	return RenderPage(page)
 }
 
-func (h *LandingPage) Get(res http.ResponseWriter, req *http.Request) {
-	res.WriteHeader(http.StatusNotImplemented)
+func (p *LandingPage) FullResponse(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(p.template).ServeHTTP(w, r)
+}
+
+func (p *LandingPage) PartialResponse(w http.ResponseWriter, r *http.Request) {
+	templ.Handler(p.template, templ.WithFragments(templates.BodyFragment)).ServeHTTP(w, r)
 }

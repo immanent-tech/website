@@ -19,14 +19,14 @@ import (
 
 const (
 	// AppName is the application name.
-	AppName = "Immanent Tech Web"
+	AppName = "Immanent Tech Website"
 	// AppID is the application name formatted for use as an ID.
-	AppID = "www-immanent-tech"
+	AppID = "tech.immanent"
 	// AppDescription is the catch-line of the application.
-	AppDescription = "Immanent Tech Website."
-	// ConfigEnvPrefix defines the environment variable prefix for reading
+	AppDescription = "The website of Immanent Tech."
+	// EnvPrefix defines the environment variable prefix for reading
 	// server configuration from the environment.
-	ConfigEnvPrefix = "IMMANENT_TECH_WEB_"
+	EnvPrefix = "IMMANENT_TECH_WEB_"
 )
 
 const (
@@ -55,7 +55,7 @@ var Init = sync.OnceValue(func() error {
 	}
 
 	// Set the environment.
-	CurrentEnvironment = Environment(os.Getenv(ConfigEnvPrefix + "ENVIRONMENT"))
+	CurrentEnvironment = Environment(os.Getenv(EnvPrefix + "ENVIRONMENT"))
 
 	return nil
 })
@@ -70,7 +70,7 @@ func Load[T any](envPrefix string) (T, error) {
 		Prefix: envPrefix,
 		TransformFunc: func(key, value string) (string, any) {
 			// Transform the key.
-			key = strings.ReplaceAll(strings.ToLower(strings.TrimPrefix(key, ConfigEnvPrefix)), "_", ".")
+			key = strings.ReplaceAll(strings.ToLower(strings.TrimPrefix(key, EnvPrefix)), "_", ".")
 			// Transform the value into slices, if they contain spaces.
 			// Eg: MYVAR_TAGS="foo bar baz" -> tags: ["foo", "bar", "baz"]
 			// This is to demonstrate that string values can be transformed to any type
@@ -86,7 +86,7 @@ func Load[T any](envPrefix string) (T, error) {
 	}
 	// Unmarshal config, overwriting defaults.
 	err = configSrc.Unmarshal(
-		strings.ToLower(strings.TrimSuffix(strings.TrimPrefix(envPrefix, ConfigEnvPrefix), "_")),
+		strings.ToLower(strings.TrimSuffix(strings.TrimPrefix(envPrefix, EnvPrefix), "_")),
 		&cfg,
 	)
 	if err != nil {

@@ -57,7 +57,7 @@ var HTMXResponseHeaders = []string{
 var corsOptions cors.Options
 
 var loadCORS = sync.OnceValue(func() error {
-	corsSettings, err := config.Load[CORS](config.ConfigEnvPrefix + "CORS_")
+	corsSettings, err := config.Load[CORS](config.EnvPrefix + "CORS_")
 	if err != nil {
 		return fmt.Errorf("load cors config: %w", err)
 	}

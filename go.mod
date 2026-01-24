@@ -2,7 +2,11 @@ module github.com/immanent-tech/www-immanent-tech
 
 go 1.25.5
 
-require github.com/knadh/koanf/v2 v2.3.0
+require (
+	github.com/knadh/koanf/v2 v2.3.0
+	github.com/mattn/go-isatty v0.0.20
+	golang.org/x/net v0.47.0
+)
 
 require (
 	github.com/aymerick/douceur v0.2.0 // indirect
@@ -16,13 +20,11 @@ require (
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
-	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/samber/lo v1.52.0 // indirect
 	github.com/samber/slog-common v0.19.0 // indirect
 	go.opentelemetry.io/otel v1.29.0 // indirect
 	go.opentelemetry.io/otel/trace v1.29.0 // indirect
 	golang.org/x/crypto v0.46.0 // indirect
-	golang.org/x/net v0.47.0 // indirect
 	golang.org/x/sys v0.39.0 // indirect
 	golang.org/x/text v0.32.0 // indirect
 )

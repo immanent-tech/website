@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	serverConfigEnvPrefix   = config.ConfigEnvPrefix
+	serverConfigEnvPrefix   = config.EnvPrefix
 	defaultCompressionLevel = 5
 )
 

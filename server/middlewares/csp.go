@@ -152,7 +152,7 @@ func (csp *CSP) String() string {
 // LoadConfigOnce loads the auth0 configuration and ensures this is only done
 // one time, no matter how many times it is called.
 var loadCSP = sync.OnceValues(func() (CSP, error) {
-	csp, err := config.Load[CSP](config.ConfigEnvPrefix + "CSP_")
+	csp, err := config.Load[CSP](config.EnvPrefix + "CSP_")
 	if err != nil {
 		return csp, fmt.Errorf("load csp config: %w", err)
 	}
