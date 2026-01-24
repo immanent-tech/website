@@ -16,7 +16,7 @@ type LandingPage struct {
 
 func NewLandingPage() http.HandlerFunc {
 	page := &LandingPage{
-		template: templates.Page(templates.LandingPage()),
+		template: templates.Page(templates.Landing()),
 	}
 	return RenderPage(page)
 }
