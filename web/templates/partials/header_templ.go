@@ -51,7 +51,7 @@ func Header() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</button></div><div class=\"hidden lg:flex lg:gap-x-12\"><a href=\"/work\" class=\"text-sm/6 font-semibold\">Work</a> <a href=\"#\" class=\"text-sm/6 font-semibold\">Support</a></div></nav><el-dialog><dialog id=\"mobile-menu\" class=\"backdrop:bg-transparent lg:hidden\"><div tabindex=\"0\" class=\"fixed inset-0 focus:outline-none\"><el-dialog-panel class=\"fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-base-200 p-6 sm:max-w-sm sm:ring-1 sm:ring-neutral\"><div class=\"flex items-center justify-between\"><a href=\"/\" class=\"-m-1.5 p-1.5\"><span class=\"sr-only\">Immanent Tech</span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</button></div><div class=\"hidden lg:flex lg:gap-x-12\"><a href=\"/work\" class=\"text-sm/6 font-semibold\">Work</a> <a href=\"/support\" class=\"text-sm/6 font-semibold\">Support</a></div></nav><el-dialog><dialog id=\"mobile-menu\" class=\"backdrop:bg-transparent lg:hidden\"><div tabindex=\"0\" class=\"fixed inset-0 focus:outline-none\"><el-dialog-panel class=\"fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-base-200 p-6 sm:max-w-sm sm:ring-1 sm:ring-neutral\"><div class=\"flex items-center justify-between\"><a href=\"/\" class=\"-m-1.5 p-1.5\"><span class=\"sr-only\">Immanent Tech</span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -67,7 +67,7 @@ func Header() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</button></div><div class=\"mt-6 flow-root\"><div class=\"-my-6 divide-y\"><div class=\"space-y-2 py-6\"><a href=\"/work\" class=\"-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold\">Work</a> <a href=\"#\" class=\"-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold\">Support</a></div></div></div></el-dialog-panel></div></dialog></el-dialog></header>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</button></div><div class=\"mt-6 flow-root\"><div class=\"-my-6 divide-y\"><div class=\"space-y-2 py-6\"><a href=\"/work\" class=\"-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold\">Work</a> <a href=\"/support\" class=\"-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold\">Support</a></div></div></div></el-dialog-panel></div></dialog></el-dialog></header>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -83,22 +83,8 @@ func Start(logger *slog.Logger) error {
 		)
 		r.Get("/", handlers.NewLandingPage())
 		r.Get("/work", handlers.NewWorkPage())
-		// r.Get("/about", handlers.About())
+		r.Get("/support", handlers.Support())
 	})
-
-	// Authenticated routes.
-	// router.Group(func(r chi.Router) {
-	// 	r.Use(
-	// 		middlewares.Etag,
-	// 		middlewares.CrossOriginProtection,
-	// 		middlewares.SetupHTMX,
-	// 		session.LoadAndSave,
-	// 		middlewares.RequireUserAuth,
-	// 		middlewares.RefreshTokenIfNeeded,
-	// 		middlewares.SetCacheControl,
-	// 		// middleware.NoCache,
-	// 	)
-	// })
 
 	csrfRouter := nosurf.New(router)
 	csrfRouter.SetFailureHandler(middlewares.CSRFError())
