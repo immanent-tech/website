@@ -3,11 +3,26 @@
 
 package handlers
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/a-h/templ"
+	"github.com/immanent-tech/www-immanent-tech/web/templates"
+)
+
+type NotFoundPage struct{}
 
 // NotFound handles showing a page for a 404 response.
 func NotFound() http.HandlerFunc {
-	return func(res http.ResponseWriter, req *http.Request) {
-		http.NotFound(res, req)
-	}
+	return RenderPage(&NotFoundPage{})
+}
+
+func (p *NotFoundPage) FullResponse(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
+	templ.Handler(templates.Page(templates.NotFound())).ServeHTTP(w, r)
+}
+
+func (p *NotFoundPage) PartialResponse(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
+	templ.Handler(templates.Page(templates.NotFound()), templ.WithFragments(templates.BodyFragment)).ServeHTTP(w, r)
 }

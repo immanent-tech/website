@@ -1,0 +1,28 @@
+// Copyright 2026 Joshua Rich <joshua.rich@gmail.com>.
+// SPDX-License-Identifier: 	AGPL-3.0-or-later
+
+package templates
+
+import "github.com/immanent-tech/www-immanent-tech/config"
+
+// NotFound renders a layout appropriate to use for a 404 response.
+templ NotFound() {
+	<div class="ui-container">
+		<div class="text-center">
+			<h1 class="mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
+				Not Found
+			</h1>
+			<h2 class="mt-4 text-2xl font-semibold tracking-tight text-balance sm:text-5xl">
+				Page not found or does not exist.
+			</h2>
+			<div class="mt-10 flex items-center justify-center gap-x-6">
+				<a role="button" href="/" class="btn btn-primary">
+					Home
+				</a>
+				<a role="button" href={ "mailto:support@immanent.tech&subject=" + config.AppName } class="btn btn-primary">
+					Email Us
+				</a>
+			</div>
+		</div>
+	</div>
+}
