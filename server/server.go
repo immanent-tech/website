@@ -82,6 +82,7 @@ func Start(logger *slog.Logger) error {
 			middlewares.Etag,
 		)
 		r.Get("/", handlers.NewLandingPage())
+		r.Get("/work", handlers.NewWorkPage())
 		// r.Get("/about", handlers.About())
 	})
 
