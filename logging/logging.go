@@ -43,7 +43,7 @@ type Options struct {
 
 // DefaultLogFile is the default log file location.
 var (
-	DefaultLogFile = "/app/serve.log"
+	DefaultLogFile = "serve.log"
 	Level          slog.Level
 )
 

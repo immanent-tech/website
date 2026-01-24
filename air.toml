@@ -7,11 +7,13 @@
 root = "."
 tmp_dir = "tmp"
 
+env_files = [".devcontainer/.env", ".env.development"]
+
 [build]
 # Add additional arguments when running binary (bin/full_bin). Will run './tmp/main hello world'.
 args_bin = [
     "--no-log-file",
-    # "--profile='heapprofile=deployments/server-heap.prof;cpuprofile=deployments/server-cpu.prof;webui=true'",
+    "--profile='heapprofile=deployments/server-heap.prof;cpuprofile=deployments/server-cpu.prof;webui=true'",
     "serve",
 ]
 # Just plain old shell command. You could use `make` as well.
@@ -19,9 +21,9 @@ cmd = 'go build -ldflags="-X github.com/immanent-tech/www-immanent-tech/config.V
 # Binary file yields from 'cmd', will be deprecated soon, recommend using entrypoint.
 bin = "tmp/www"
 # Entrypoint binary relative to root. First item is the executable, more items are default arguments.
-# entrypoint = ["./tmp/main"]
+entrypoint = ["tmp/www"]
 # Customize binary, can setup environment variables when run your app.
-full_bin = "/workspace/node_modules/.bin/dotenv -e .env.development -- tmp/www"
+# full_bin = "dotenv -e .env.development tmp/www"
 # Ignore these filename extensions or directories.
 exclude_dir = [
     "bin",
