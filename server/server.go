@@ -67,7 +67,6 @@ func Start(logger *slog.Logger) error {
 		middleware.Compress(defaultCompressionLevel, compressMimetypes...),
 		middleware.StripSlashes,
 		middlewares.Etag,
-		middlewares.CrossOriginProtection,
 		middlewares.SetupHTMX,
 	)
 
