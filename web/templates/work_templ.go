@@ -13,6 +13,7 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import "github.com/sebasvil20/templicons/tabler"
+import "github.com/immanent-tech/www-immanent-tech/web/templates/partials"
 
 func Work() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -35,7 +36,15 @@ func Work() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"bg-base-100 py-24 sm:py-32\"><div class=\"mx-auto max-w-7xl px-6 lg:px-8\"><div class=\"mx-auto max-w-2xl lg:mx-0\"><h2 class=\"text-4xl font-semibold tracking-tight text-pretty sm:text-5xl\">Our work</h2><p class=\"mt-6 text-lg/8\">We build small and wonderfully useful web things.</p></div><ul role=\"list\" class=\"mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3\"><li><img src=\"/content/foragd-screenshot.webp\" alt=\"\" class=\"aspect-3/2 w-full rounded-2xl object-cover outline-1 -outline-offset-1 outline-neutral/5\"><h3 class=\"mt-6 text-lg/8 font-semibold tracking-tight\">Foragd</h3><p class=\"text-base/7\">A beautiful, web based, online feed reader.</p><ul role=\"list\" class=\"mt-6 flex gap-x-6\"><li><a href=\"https://foragd.app\" class=\"link link-hover\"><span class=\"sr-only\">Website</span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"bg-base-100\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = partials.Header().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"relative isolate mx-auto max-w-7xl px-6 lg:px-8 mt-36\"><div class=\"mx-auto max-w-2xl lg:mx-0\"><h2 class=\"text-4xl font-semibold tracking-tight text-pretty sm:text-5xl\">Our work</h2><p class=\"mt-6 text-lg/8\">We build small and wonderfully useful web things.</p></div><ul role=\"list\" class=\"mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3\"><li><img src=\"/content/foragd-screenshot.webp\" alt=\"\" class=\"aspect-3/2 w-full rounded-2xl object-cover outline-1 -outline-offset-1 outline-neutral/5\"><h3 class=\"mt-6 text-lg/8 font-semibold tracking-tight\">Foragd</h3><p class=\"text-base/7\">A beautiful, web based, online feed reader.</p><ul role=\"list\" class=\"mt-6 flex gap-x-6\"><li><a href=\"https://foragd.app\" class=\"link link-hover\"><span class=\"sr-only\">Website</span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -43,7 +52,7 @@ func Work() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</a></li><li><a href=\"https://github.com/immanent-tech/foragd\" class=\"link link-hover\"><span class=\"sr-only\">Github</span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</a></li><li><a href=\"https://github.com/immanent-tech/foragd\" class=\"link link-hover\"><span class=\"sr-only\">Github</span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -51,7 +60,7 @@ func Work() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</a></li></ul></li><li><img src=\"https://opengraph.githubassets.com/0/immanent-tech/go-syndication\" alt=\"go-syndication GitHub Repository Thumbnail\" class=\"aspect-3/2 w-full rounded-2xl object-cover outline-1 -outline-offset-1 outline-neutral\"><h3 class=\"mt-6 text-lg/8 font-semibold tracking-tight\">go-syndication</h3><p class=\"text-base/7\">Syndication (RDF/RSS/Atom/JSONFeed) library for Go.</p><ul role=\"list\" class=\"mt-6 flex gap-x-6\"><li><a href=\"https://github.com/immanent-tech/go-syndication\" class=\"link link-hover\"><span class=\"sr-only\">Github</span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</a></li></ul></li><li><img src=\"https://opengraph.githubassets.com/0/immanent-tech/go-syndication\" alt=\"go-syndication GitHub Repository Thumbnail\" class=\"aspect-3/2 w-full rounded-2xl object-cover outline-1 -outline-offset-1 outline-neutral\"><h3 class=\"mt-6 text-lg/8 font-semibold tracking-tight\">go-syndication</h3><p class=\"text-base/7\">Syndication (RDF/RSS/Atom/JSONFeed) library for Go.</p><ul role=\"list\" class=\"mt-6 flex gap-x-6\"><li><a href=\"https://github.com/immanent-tech/go-syndication\" class=\"link link-hover\"><span class=\"sr-only\">Github</span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -59,7 +68,7 @@ func Work() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</a></li></ul></li><li><img src=\"https://opengraph.githubassets.com/0/immanent-tech/slog-elasticsearch\" alt=\"slog-elasticsearch GitHub Repository Thumbnail\" class=\"aspect-3/2 w-full rounded-2xl object-cover outline-1 -outline-offset-1 outline-neutral\"><h3 class=\"mt-6 text-lg/8 font-semibold tracking-tight\">slog-elasticsearch</h3><p class=\"text-base/7\">slog Elasticsearch handler.</p><ul role=\"list\" class=\"mt-6 flex gap-x-6\"><li><a href=\"https://github.com/immanent-tech/slog-elasticsearch\" class=\"link link-hover\"><span class=\"sr-only\">Github</span>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</a></li></ul></li><li><img src=\"https://opengraph.githubassets.com/0/immanent-tech/slog-elasticsearch\" alt=\"slog-elasticsearch GitHub Repository Thumbnail\" class=\"aspect-3/2 w-full rounded-2xl object-cover outline-1 -outline-offset-1 outline-neutral\"><h3 class=\"mt-6 text-lg/8 font-semibold tracking-tight\">slog-elasticsearch</h3><p class=\"text-base/7\">slog Elasticsearch handler.</p><ul role=\"list\" class=\"mt-6 flex gap-x-6\"><li><a href=\"https://github.com/immanent-tech/slog-elasticsearch\" class=\"link link-hover\"><span class=\"sr-only\">Github</span>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -67,7 +76,7 @@ func Work() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</a></li></ul></li></ul></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</a></li></ul></li></ul></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -4,10 +4,12 @@
 package templates
 
 import "github.com/sebasvil20/templicons/tabler"
+import "github.com/immanent-tech/www-immanent-tech/web/templates/partials"
 
 templ Work() {
-	<div class="bg-base-100 py-24 sm:py-32">
-		<div class="mx-auto max-w-7xl px-6 lg:px-8">
+	<div class="bg-base-100">
+		@partials.Header()
+		<div class="relative isolate mx-auto max-w-7xl px-6 lg:px-8 mt-36">
 			<div class="mx-auto max-w-2xl lg:mx-0">
 				<h2 class="text-4xl font-semibold tracking-tight text-pretty sm:text-5xl">Our work</h2>
 				<p class="mt-6 text-lg/8">We build small and wonderfully useful web things.</p>
