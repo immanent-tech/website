@@ -1,0 +1,136 @@
+{
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[go.mod]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "always"
+        },
+        "editor.defaultFormatter": "golang.go",
+        "editor.formatOnSave": true
+    },
+    "[go]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "always"
+        },
+        "editor.defaultFormatter": "golang.go"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+        "editor.wordWrap": "wordWrapColumn"
+    },
+    "[templ]": {
+        "editor.defaultFormatter": "a-h.templ"
+    },
+    "[toml]": {
+        "editor.defaultFormatter": "tamasfe.even-better-toml"
+    },
+    "[xml]": {
+        "editor.defaultFormatter": "DotJoshJohnson.xml"
+    },
+    "conventionalCommits.lineBreak": "\\n",
+    "conventionalCommits.promptBody": false,
+    "conventionalCommits.scopes": [
+        "models",
+        "devcontainer",
+        "scheduler",
+        "layouts",
+        "handlers",
+        "partials",
+        "templates",
+        "session",
+        "elastic",
+        "schema",
+        "server",
+        "feeds",
+        "middlewares",
+        "assets",
+        "config",
+        "auth0",
+        "feeds/extensions",
+        "gcp",
+        "container",
+        "logging",
+        "github",
+        "rss",
+        "atom",
+        "css",
+        "search",
+        "pkg",
+        "cli",
+        "types",
+        "parser",
+        "stripe",
+        "google",
+        "resend"
+    ],
+    "css.lint.idSelector": "warning",
+    "editor.formatOnSave": true,
+    "emmet.includeLanguages": {
+        "templ": "html"
+    },
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/*_templ.go": true,
+        "**/CVS": true,
+        "**/Thumbs.db": true
+    },
+    "go.alternateTools": {
+        "customFormatter": "golangci-lint-v2"
+    },
+    "go.formatFlags": [
+        "fmt",
+        "--stdin"
+    ],
+    "go.formatTool": "custom",
+    "go.inlayHints.constantValues": true,
+    "go.lintFlags": [
+        "run",
+        "--timeout=5m",
+        "--issues-exit-code=0",
+        "--output.text.colors=true",
+        "--output.text.path=stdout",
+        "--output.text.print-issued-lines=false",
+        "--show-stats=false"
+    ],
+    "go.lintTool": "golangci-lint-v2",
+    "go.useLanguageServer": true,
+    "gopls": {
+        "ui.semanticTokens": true
+    },
+    "languageToolLinter.external.url": "http://host.containers.internal:8010",
+    "languageToolLinter.languageTool.language": "auto",
+    "languageToolLinter.languageTool.level": "picky",
+    "licenser.author": "Joshua Rich <joshua.rich@gmail.com>",
+    "licenser.license": "AGPLv3",
+    "licenser.useSPDXLicenseFormat": true,
+    "ltex.language": "en-AU",
+    "prettier.bracketSameLine": true,
+    "prettier.singleAttributePerLine": true,
+    // "editor.wordWrap": "wordWrapColumn",
+    // "editor.wordWrapColumn": 120,
+    "rewrap.wrappingColumn": 120,
+    "tailwindCSS.emmetCompletions": true,
+    "tailwindCSS.includeLanguages": {
+        "templ": "html"
+    },
+    "templ.goplsRemote": "auto",
+    "terminal.integrated.defaultProfile.linux": "fish",
+    "terminal.integrated.scrollback": 10000,
+    "xmlTools.enforcePrettySelfClosingTagOnFormat": true,
+    "xmlTools.splitAttributesOnFormat": true,
+    "languageToolLinter.languageTool.ignoredWordsInWorkspace": [
+        "jsonfeed",
+        "podman"
+    ],
+    "languageToolLinter.languageTool.motherTongue": "en-US"
+}

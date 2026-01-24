@@ -1,0 +1,66 @@
+/* Copyright 2026 Joshua Rich <joshua.rich@gmail.com>. */
+/* SPDX-License-Identifier: 	AGPL-3.0-or-later */
+
+@import 'tailwindcss' source('../templates/**/*.{html,templ}');
+@plugin '@tailwindcss/typography';
+@plugin 'daisyui' {
+  themes:
+    light,
+    dark,
+  /* https://github.com/saadeghi/daisyui/issues/3882 */
+  exclude: properties;
+}
+
+/* @plugin './catppuccinTheme.latte.ts';
+@plugin './catppuccinTheme.mocha.ts';
+
+@import './daisyui.css'; */
+
+/* Inter font styling */
+/* https://tailwindcss.com/plus/ui-blocks/documentation#add-the-inter-font-family */
+/* https://rsms.me/inter/#usage */
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1,
+    'cv02' 1,
+    'cv03' 1,
+    'cv04' 1,
+    'cv11' 1;
+  --sidebar-width: var(--w-sm);
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif;
+    font-optical-sizing: auto;
+  }
+}
+
+/* Use page view transitions. */
+@view-transition {
+  navigation: auto;
+}
+
+@layer base {
+  el-menu {
+    @apply bg-base-300 outline-base-content/15 transition-discrete data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in origin-top-right rounded-md py-2 shadow-lg outline-1 -outline-offset-1 transition [--anchor-gap:--spacing(2.5)];
+    a {
+      @apply focus:text-primary focus:outline-hidden flex items-center gap-4 px-4 py-2 text-sm no-underline hover:underline;
+    }
+  }
+
+  dialog {
+    @apply backdrop:bg-transparent;
+  }
+
+  el-dialog-backdrop {
+    @apply bg-base-100/25 data-closed:opacity-0 fixed inset-0 transition-opacity duration-300 ease-linear;
+  }
+
+  el-dialog-panel {
+    @apply data-closed:scale-95 data-closed:opacity-0 transition duration-200;
+  }
+}
+

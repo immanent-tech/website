@@ -1,0 +1,39 @@
+{
+    "name": "Immanent Tech Website",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "devcontainer",
+    "postCreateCommand": "bash .devcontainer/postcreate.sh",
+    "containerUser": "vscode",
+    "containerEnv": {
+        "HOME": "/home/vscode"
+    },
+    "remoteEnv": {
+        "PODMAN_COMPOSE_WARNING_LOGS": "false",
+        "TZ": "${localEnv:TZ:Australia/Brisbane}"
+    },
+    "updateRemoteUserUID": true,
+    "workspaceFolder": "/workspace",
+    "shutdownAction": "stopCompose",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vivaxy.vscode-conventional-commits",
+                "golang.go",
+                "ymotongpoo.licenser",
+                "tamasfe.even-better-toml",
+                "redhat.vscode-yaml",
+                "esbenp.prettier-vscode",
+                "a-h.templ",
+                "bradlc.vscode-tailwindcss",
+                "yzhang.markdown-all-in-one",
+                "DavidAnson.vscode-markdownlint",
+                "dnut.rewrap-revived",
+                "dz4k.vscode-hyperscript-org",
+                "DotJoshJohnson.xml",
+                "redhat.vscode-xml",
+                "davidlday.languagetool-linter",
+                "nize.oklch-preview"
+            ]
+        }
+    }
+}

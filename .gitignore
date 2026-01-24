@@ -1,0 +1,60 @@
+# Auto-generated .gitignore file.
+# See https://gowebly.org for more information.
+
+# macOS files.
+.DS_Store
+
+# IDE files.
+.idea/
+
+# Go workflow files.
+go.work
+
+# Environment files.
+**/.env*
+
+# Don't include local server configuration.
+server.toml
+# Don't include generated files.
+web/content/*.css
+web/content/*.css.map
+web/content/*.js
+web/content/*.js.map
+web/content/*.woff2
+web/content/*.ttf
+web/content/fontawesome
+
+# Node modules.
+node_modules/
+
+# Vendor folders.
+vendor/
+
+# Temp folders.
+tmp/
+
+# Logs.
+logs/
+*.log
+
+# Ignore by extensions.
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.local
+*.lockb
+*.test
+*.tmp
+*.out
+
+localhost.crt
+localhost.key
+
+deployments/
