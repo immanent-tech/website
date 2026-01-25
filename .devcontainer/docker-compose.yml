@@ -30,7 +30,7 @@ services:
       - .env
     image: docker.io/dolthub/dolt-sql-server:$DOLT_VERSION
     volumes:
-      - ../deployments/dolt:/var/lib/dolt
+      - ./data/dolt:/var/lib/dolt
     ports:
       - $DOLT_PORT:3306
     stop_grace_period: 1m

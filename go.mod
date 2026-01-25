@@ -5,6 +5,7 @@ go 1.25.5
 require (
 	github.com/knadh/koanf/v2 v2.3.0
 	github.com/mattn/go-isatty v0.0.20
+	github.com/sebasvil20/templicons v1.1.0
 	golang.org/x/net v0.47.0
 )
 
@@ -22,7 +23,6 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/samber/lo v1.52.0 // indirect
 	github.com/samber/slog-common v0.19.0 // indirect
-	github.com/sebasvil20/templicons v1.1.0 // indirect
 	go.opentelemetry.io/otel v1.29.0 // indirect
 	go.opentelemetry.io/otel/trace v1.29.0 // indirect
 	golang.org/x/crypto v0.46.0 // indirect

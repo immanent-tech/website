@@ -23,6 +23,19 @@ RUN addgroup --gid $USER_GID $USER_NAME \
 
 USER $USER_NAME
 
+# Install gcloud cli
+RUN <<EOF
+    cd $HOME
+    curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz
+    tar -xf google-cloud-cli-linux-x86_64.tar.gz
+    rm google-cloud-cli-linux-x86_64.tar.gz
+    sudo apk add python3
+    google-cloud-sdk/install.sh --usage-reporting false --quiet --additional-components app-engine-go
+EOF
+
+# Install pulumictl
+RUN curl -fsSL https://get.pulumi.com | sh
+
 # Install Go tools.
 RUN <<EOF
     export PATH="$HOME/go/bin":/go/bin:/usr/local/go/bin:$PATH
@@ -35,6 +48,9 @@ RUN <<EOF
     mkdir -p ~/.config/fish
     echo 'set --export PATH "/workspace/node_modules/.bin" $PATH' >> ~/.config/fish/config.fish
     echo 'set --export PATH "$HOME/go/bin" /go/bin /usr/local/go/bin $PATH' >> ~/.config/fish/config.fish
+    echo 'set --export PULUMI_INSTALL "$HOME/.pulumi"' >> ~/.config/fish/config.fish
+    echo 'set --export PATH $PULUMI_INSTALL/bin $PATH' >> ~/.config/fish/config.fish
+    echo 'source "$HOME/google-cloud-sdk/path.fish.inc"' >> ~/.config/fish/config.fish
 EOF
 
 # The base container sets XDG_CACHE_HOME XDG_CONFIG_HOME specifically for the root user, we can't unset them in a way

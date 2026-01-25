@@ -20,10 +20,5 @@ go install github.com/air-verse/air@latest
 go install github.com/a-h/templ/cmd/templ@latest
 go install golang.org/x/tools/gopls@latest
 
-# Install Stripe CLI.
-cd /tmp \
-    && curl -L -O https://github.com/stripe/stripe-cli/releases/download/v1.33.2/stripe_1.33.2_linux_x86_64.tar.gz \
-    && tar xvf stripe* \
-    && sudo mv stripe /usr/local/bin
 
 exit 0

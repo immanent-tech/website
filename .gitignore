@@ -53,8 +53,7 @@ logs/
 *.test
 *.tmp
 *.out
+*.crt
+*.key
 
-localhost.crt
-localhost.key
-
-deployments/
+.devcontainer/data
