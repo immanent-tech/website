@@ -53,7 +53,5 @@ logs/
 *.test
 *.tmp
 *.out
-*.crt
-*.key
 
 .devcontainer/data

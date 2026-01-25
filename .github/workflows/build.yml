@@ -1,0 +1,144 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  # workflow_run:
+  #   workflows: ["test"]
+  #   branches: [main]
+  #   types:
+  #     - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "build"
+  cancel-in-progress: true
+
+jobs:
+  check_release:
+    permissions:
+      contents: write
+      pull-requests: write
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-22.04
+    outputs:
+      release_created: ${{ steps.release_please.outputs.release_created }}
+      release_tag: ${{ steps.release_please.outputs.tag_name }}
+    steps:
+      # - name: Harden Runner
+      #   uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+      #   with:
+      #     disable-sudo: true
+      #     egress-policy: block
+      #     allowed-endpoints: >
+      #       api.github.com:443
+      - name: Run release please
+        uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4
+        id: release_please
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  build_container:
+    needs: check_release
+    permissions:
+      contents: write
+      packages: write
+    runs-on: ubuntu-22.04
+    env:
+      REGISTRY: ghcr.io
+      IMAGE: ${{ github.repository }}
+    steps:
+      # - name: Harden Runner
+      #   uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+      #   with:
+      #     disable-sudo: true
+      #     egress-policy: block
+      #     allowed-endpoints: >
+      #       api.github.com:443
+      #       auth.docker.io:443
+      #       dl-cdn.alpinelinux.org:443
+      #       ghcr.io:443
+      #       github.com:443
+      #       production.cloudflare.docker.com:443
+      #       proxy.golang.org:443
+      #       registry-1.docker.io:443
+      #       storage.googleapis.com:443
+      #       sum.golang.org:443
+      #       release-assets.githubusercontent.com:443
+      - name: Checkout repo
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4
+        with:
+          submodules: 'true'
+
+      - name: Set up environment
+        run: |
+          echo "APPVERSION=$(git describe --tags --always --dirty)" >> $GITHUB_ENV
+
+      - name: Set app version for release
+        if: ${{ needs.check_release.outputs.release_created }}
+        run: echo "APPVERSION=${{ needs.check_release.outputs.release_tag }}" >> $GITHUB_ENV
+
+      - name: Check and install cosign
+        uses: sigstore/cosign-installer@faadad0cce49287aee09b3a48701e75088a2c6ad # v3
+
+      - name: Log in to the Container registry
+        if: github.event_name != 'pull_request'
+        id: registry_login
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get Docker metadata
+        id: docker_metadata
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
+        with:
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE }}-${{ matrix.service }}
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
+            type=sha,format=long
+            type=raw,value=${{ env.APPVERSION }}
+          flavor: |
+            latest=auto
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+
+      - name: Build and push container image
+        id: build_and_push
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v5
+        with:
+          push: ${{ github.event_name != 'pull_request' }}
+          file: Dockerfile
+          context: .
+          labels: ${{ steps.docker_metadata.outputs.labels }}
+          annotations: ${{ steps.docker_metadata.outputs.annotations }}
+          tags: ${{ steps.docker_metadata.outputs.tags }}
+          outputs: type=image,name=${{ env.REGISTRY }}/${{ env.IMAGE }},push=true
+          build-args: |
+            APPVERSION=${{ env.APPVERSION }}
+
+      - name: Sign image with a key
+        run: |
+          images=""
+          for tag in ${TAGS}; do
+            images+="${tag}@${DIGEST} "
+          done
+          cosign sign --yes --key cosign.key ${images}
+        env:
+          TAGS: ${{ steps.docker_metadata.outputs.tags }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+          DIGEST: ${{ steps.build_and_push.outputs.digest }}
