@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/immanent-tech/website/compare/v0.2.0...v0.3.0) (2026-01-25)
+
+
+### Features
+
+* **templates:** :wrench: add base htmx config ([e032015](https://github.com/immanent-tech/website/commit/e032015cc17e4edafdb73309eac82654cf51a085))
+
 ## [0.2.0](https://github.com/immanent-tech/website/compare/v0.1.0...v0.2.0) (2026-01-25)
 
 
