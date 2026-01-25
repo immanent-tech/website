@@ -7,6 +7,7 @@ import (
 	"github.com/immanent-tech/www-immanent-tech/config"
 	"github.com/immanent-tech/www-immanent-tech/models"
 	"github.com/immanent-tech/www-immanent-tech/web/templates/opengraph"
+	"os"
 	"slices"
 	"time"
 )
@@ -86,7 +87,7 @@ templ Page(template templ.Component, options ...PageOption) {
 			<link rel="shortcut icon" href="/content/favicon.ico" type="image/x-icon" hx-preserve="true"/>
 			<link href={ "/content/fonts/inter/inter.css?v=" + config.Version } rel="stylesheet" hx-preserve="true"/>
 			if config.CurrentEnvironment == config.EnvProduction {
-				<script defer src="https://cloud.umami.is/script.js" data-website-id="24250832-ccab-4bbc-bef9-6ba418e0ea51" crossorigin="anonymous" hx-preserve="true"></script>
+				<script defer src="https://cloud.umami.is/script.js" data-website-id={ os.Getenv(config.EnvPrefix + "UMAMI_ID") } crossorigin="anonymous" hx-preserve="true"></script>
 			}
 			<script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module" crossorigin="anonymous" hx-preserve="true"></script>
 			switch config.CurrentEnvironment {

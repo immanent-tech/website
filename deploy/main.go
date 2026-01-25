@@ -218,6 +218,10 @@ func main() {
 								Name:  pulumi.String(envPrefix + "CORS_MAXAGE"),
 								Value: pulumi.String(os.Getenv(envPrefix + "CORS_MAXAGE")),
 							},
+							&cloudrunv2.ServiceTemplateContainerEnvArgs{
+								Name:  pulumi.String(envPrefix + "UMAMI_ID"),
+								Value: pulumi.String(os.Getenv(envPrefix + "UMAMI_ID")),
+							},
 						},
 					},
 				},
