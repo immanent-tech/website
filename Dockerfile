@@ -36,10 +36,10 @@ EOF
 
 # Set necessary environment variables and build your project.
 ENV CGO_ENABLED=0
-RUN go build -ldflags="-s -w -X github.com/immanent-tech/www-immanent-tech/config.Version=$APPVERSION" -o server
+RUN go build -ldflags="-s -w -X github.com/immanent-tech/www-immanent-tech/config.Version=$APPVERSION" -o webserver
 
 # compress binary with upx
-RUN upx --best --lzma server
+RUN upx --best --lzma webserver
 
 FROM docker.io/alpine:3.23.2@sha256:865b95f46d98cf867a156fe4a135ad3fe50d2056aa3f25ed31662dff6da4eb62 AS server
 
@@ -56,7 +56,7 @@ LABEL org.opencontainers.image.licenses=AGPL-3.0-or-later
 RUN apk add ca-certificates tzdata
 
 # Copy project's binary and templates from /build to the scratch container.
-COPY --from=builder /build/server /
+COPY --from=builder /build/webserver /
 
 # Allow custom uid and gid
 ARG UID=1000
@@ -69,5 +69,5 @@ RUN addgroup --gid "${GID}" imtech && \
 USER imtech
 
 # Set entry point.
-ENTRYPOINT ["/server"]
+ENTRYPOINT ["/webserver"]
 CMD ["serve", "--no-log-file"]
