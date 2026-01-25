@@ -100,7 +100,7 @@ jobs:
         uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
         with:
           images: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE }}-${{ matrix.service }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE }}
           tags: |
             type=schedule
             type=ref,event=branch
