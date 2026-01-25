@@ -1,0 +1,4 @@
+environment:
+  - website/production
+config:
+  gcp:project: website-485400

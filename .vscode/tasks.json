@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "run: server",
+            "label": "Server: Run",
             "type": "shell",
             "command": "air -c air.toml",
             "problemMatcher": [],
@@ -16,6 +16,20 @@
                 "showReuseMessage": true,
                 "clear": false
             }
+        },
+        {
+            "label": "Server: Deploy",
+            "type": "shell",
+            "command": "pulumi up",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/deploy"
+            }
+        },
+        {
+            "label": "Pulumi: Update",
+            "type": "shell",
+            "command": "curl -sSL https://get.pulumi.com | sh"
         },
     ],
     "inputs": [
