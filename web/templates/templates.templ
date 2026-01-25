@@ -6,6 +6,7 @@ package templates
 import (
 	"github.com/immanent-tech/www-immanent-tech/config"
 	"github.com/immanent-tech/www-immanent-tech/models"
+	"github.com/immanent-tech/www-immanent-tech/web/templates/htmx"
 	"github.com/immanent-tech/www-immanent-tech/web/templates/opengraph"
 	"os"
 	"slices"
@@ -99,30 +100,20 @@ templ Page(template templ.Component, options ...PageOption) {
 					<link href={ "/content/styles.css?v=" + config.Version } rel="stylesheet" hx-preserve="true"/>
 			}
 			// Site-wide htmx config.
-			// <meta
-			// 	name="htmx-config"
-			// 	content={ templ.JSONString(htmx.Config{
-			// 		AllowNestedOOBSwaps: false,
-			// 		// ResponseHandling: []*htmx.ResponseHandling{
-			// 		// 	{Code: "204",Swap: false},
-			// 		// 	{Code:"[23]..",Swap: true},
-			// 		// 	{Code:"422",Swap: true},
-			// 		// 	{Code: "[45]..",Swap: true,Error: true},
-			// 		// 	{Code:"...",Swap: false},
-			// 		// },
-			// 		InlineStyleNonce: templ.GetNonce(ctx),
-			// 		InlineScriptNonce: templ.GetNonce(ctx),
-			// 		IncludeIndicatorStyles: true,
-			// 		HistoryRestoreAsHxRequest: false,
-			// 		GlobalViewTransitions: true,
-			// 	}) }
-			// 	hx-preserve="true"
-			// />
+			<meta
+				name="htmx-config"
+				content={ templ.JSONString(htmx.Config{
+					AllowNestedOOBSwaps: false,
+					IncludeIndicatorStyles: true,
+					HistoryRestoreAsHxRequest: false,
+					GlobalViewTransitions: true,
+				}) }
+				hx-preserve="true"
+			/>
 			<title>{ p.Title }</title>
 		</head>
 		<body
 			class="h-full"
-			hx-ext="response-targets,preload,sse,head-support"
 			_="on every htmx:beforeSend in <button:not(.no-disable)/> tell it toggle [@disabled='true'] until htmx:afterOnLoad"
 		>
 			<input id="page-theme" type="checkbox" value="synthwave" class="toggle theme-controller hidden" checked="checked"/>
