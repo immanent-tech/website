@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.0](https://github.com/immanent-tech/website/compare/v0.1.0...v0.2.0) (2026-01-25)
+
+
+### Features
+
+* :rocket: add pulumi deployment ([93fff39](https://github.com/immanent-tech/website/commit/93fff399d9ffe178044465b8be48d062ea3a65b3))
+
+
+### Bug Fixes
+
+* :bug: fix umami analytics id ([bde799f](https://github.com/immanent-tech/website/commit/bde799f304cd4c04ea97a109dfb2a5769b0a247a))
+
 ## [0.1.0](https://github.com/immanent-tech/website/compare/v0.0.1...v0.1.0) (2026-01-25)
 
 
