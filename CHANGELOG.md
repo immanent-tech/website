@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/immanent-tech/website/compare/v0.3.0...v0.4.0) (2026-02-06)
+
+
+### Features
+
+* **templates:** :sparkles: add featured on betalist badge to Foragd card ([2b22b93](https://github.com/immanent-tech/website/commit/2b22b93b53417f86bb0bee2ff8c7b8392bc6531f))
+
 ## [0.3.0](https://github.com/immanent-tech/website/compare/v0.2.0...v0.3.0) (2026-01-25)
 
 
