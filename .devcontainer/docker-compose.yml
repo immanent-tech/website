@@ -18,19 +18,19 @@ services:
       - seccomp:unconfined
     hostname: devcontainer
     ports:
-      - 8000:8000
+      - 7001:7001
     ulimits:
       nofile:
         soft: 65535
         hard: 65535
       nproc: 65535
 
-  dolt:
-    env_file:
-      - .env
-    image: docker.io/dolthub/dolt-sql-server:$DOLT_VERSION
-    volumes:
-      - ./data/dolt:/var/lib/dolt
-    ports:
-      - $DOLT_PORT:3306
-    stop_grace_period: 1m
+  # dolt:
+  #   env_file:
+  #     - .env
+  #   image: docker.io/dolthub/dolt-sql-server:$DOLT_VERSION
+  #   volumes:
+  #     - ./data/dolt:/var/lib/dolt
+  #   ports:
+  #     - $DOLT_PORT:3306
+  #   stop_grace_period: 1m

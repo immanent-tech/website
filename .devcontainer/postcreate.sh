@@ -2,16 +2,9 @@
 
 set -x
 
-# Add starship to fish shell.
-mkdir -p ~/.config/fish
-echo "starship init fish | source" >>~/.config/fish/config.fish
-
-# Add starship to bash shell.
-echo 'eval "$(starship init bash)"' >>~/.bashrc
-
 cd /workspace
 
-# Update JS packages.
+# Update JS packages with bun.
 npm update || exit -1
 echo 'set --export PATH "/workspace/node_modules/.bin" $PATH' >> ~/.config/fish/config.fish
 
@@ -26,7 +19,7 @@ export PATH="$HOME/go/bin:/go/bin:/usr/local/go/bin:$PATH" && \
     golangci-lint custom && \
     mv /tmp/golangci-lint-v2 $(go env GOPATH)/bin/
 
-# Install gcloud cli
+# Install gcloud cli.
 cd $HOME && \
     curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz && \
     tar -xf google-cloud-cli-linux-x86_64.tar.gz && \

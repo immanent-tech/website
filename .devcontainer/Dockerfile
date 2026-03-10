@@ -1,7 +1,7 @@
-FROM docker.io/alpine@sha256:51183f2cfa6320055da30872f211093f9ff1d3cf06f39a0bdb212314c5dc7375 AS builder
+FROM docker.io/alpine:3.23.3@sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659 AS builder
 
 # Copy go from official image
-COPY --from=docker.io/golang:1.25.5-alpine@sha256:26111811bc967321e7b6f852e914d14bede324cd1accb7f81811929a6a57fea9 /usr/local/go/ /usr/local/go/
+COPY --from=docker.io/golang:1.26.1-alpine-3.23@sha256:2389ebfa5b7f43eeafbd6be0c3700cc46690ef842ad962f6c5bd6be49ed82039 /usr/local/go/ /usr/local/go/
 
 # Install additional packages
 RUN apk update && apk add sudo openssh curl git bash fish micro graphviz step-cli step-certificates nodejs npm cosign
@@ -28,5 +28,14 @@ USER $USER_NAME
 # paths so if we just leave it set to /root/.cache we'll get permission errors.
 ENV XDG_CONFIG_HOME=/home/$USER_NAME/.config
 ENV XDG_CACHE_HOME=/home/$USER_NAME/.cache
+# Set up XDG_RUNTIME_DIR
+RUN export XDG_RUNTIME_DIR=/tmp/$USER_UID-runtime-dir \
+    && mkdir $XDG_RUNTIME_DIR \
+    && chmod 0700 $XDG_RUNTIME_DIR
+ENV XDG_RUNTIME_DIR=/tmp/$USER_UID-runtime-dir
+# Set up shell(s).
+RUN mkdir -p ~/.config/fish \
+    && echo "starship init fish | source" >>~/.config/fish/config.fish \
+    && echo 'eval "$(starship init bash)"' >>~/.bashrc
 
 ENTRYPOINT ["/usr/bin/fish"]
