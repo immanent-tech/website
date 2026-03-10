@@ -61,16 +61,15 @@ var Init = sync.OnceValue(func() error {
 })
 
 // Load will load a config via environment variables with the given prefix into an object of the given type.
-func Load[T any](envPrefix string) (T, error) {
-	var cfg T
+func Load[T any](envPrefix string, cfg T) error {
 	// Initialise the config  object.
 	configSrc := koanf.New(".")
 	// Load environment variables.
-	err := configSrc.Load(env.Provider(".", env.Opt{
+	if err := configSrc.Load(env.Provider(".", env.Opt{
 		Prefix: envPrefix,
 		TransformFunc: func(key, value string) (string, any) {
 			// Transform the key.
-			key = strings.ReplaceAll(strings.ToLower(strings.TrimPrefix(key, EnvPrefix)), "_", ".")
+			key = strings.ReplaceAll(strings.ToLower(strings.TrimPrefix(key, envPrefix)), "_", ".")
 			// Transform the value into slices, if they contain spaces.
 			// Eg: MYVAR_TAGS="foo bar baz" -> tags: ["foo", "bar", "baz"]
 			// This is to demonstrate that string values can be transformed to any type
@@ -80,18 +79,13 @@ func Load[T any](envPrefix string) (T, error) {
 			}
 			return key, value
 		},
-	}), nil)
-	if err != nil {
-		return cfg, fmt.Errorf("unable to load config: %w", err)
+	}), nil); err != nil {
+		return fmt.Errorf("unable to load config: %w", err)
 	}
 	// Unmarshal config, overwriting defaults.
-	err = configSrc.Unmarshal(
-		strings.ToLower(strings.TrimSuffix(strings.TrimPrefix(envPrefix, EnvPrefix), "_")),
-		&cfg,
-	)
-	if err != nil {
-		return cfg, fmt.Errorf("%w: %w", ErrLoadConfig, err)
+	if err := configSrc.Unmarshal("", cfg); err != nil {
+		return fmt.Errorf("%w: %w", ErrLoadConfig, err)
 	}
 
-	return cfg, nil
+	return nil
 }

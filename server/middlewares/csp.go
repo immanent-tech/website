@@ -149,14 +149,15 @@ func (csp *CSP) String() string {
 	return strings.TrimSpace(policy.String())
 }
 
+var cspCfg CSP
+
 // LoadConfigOnce loads the auth0 configuration and ensures this is only done
 // one time, no matter how many times it is called.
 var loadCSP = sync.OnceValues(func() (CSP, error) {
-	csp, err := config.Load[CSP](config.EnvPrefix + "CSP_")
-	if err != nil {
-		return csp, fmt.Errorf("load csp config: %w", err)
+	if err := config.Load(config.EnvPrefix+"CSP_", &cspCfg); err != nil {
+		return cspCfg, fmt.Errorf("load csp config: %w", err)
 	}
-	return csp, nil
+	return cspCfg, nil
 })
 
 var currentNonce string
@@ -172,21 +173,21 @@ func ContentSecurityPolicy(next http.Handler) http.Handler {
 		}
 		ctx := req.Context()
 		// if !htmx.IsHTMX(req) {
-		// Add nonces.
-		currentNonce, err = generateNonce()
-		if err != nil {
-			http.Error(
-				res,
-				fmt.Sprintf("failed to generate nonce for style-src: %v", err),
-				http.StatusInternalServerError,
-			)
-			return
-		}
+		// 	// Add nonces.
+		// 	currentNonce, err = generateNonce()
+		// 	if err != nil {
+		// 		http.Error(
+		// 			res,
+		// 			fmt.Sprintf("failed to generate nonce for style-src: %v", err),
+		// 			http.StatusInternalServerError,
+		// 		)
+		// 		return
+		// 	}
+		// }
 		// csp.StyleSrc = append(csp.StyleSrc, "'nonce-"+currentNonce+"'")
 		// csp.ScriptSrc = append(csp.ScriptSrc, "'nonce-"+currentNonce+"'")
 		// Write header.
 		res.Header().Add("Content-Security-Policy", csp.String())
-		// }
 		ctx = templ.WithNonce(ctx, currentNonce)
 		next.ServeHTTP(res, req.WithContext(ctx))
 	})

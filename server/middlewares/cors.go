@@ -10,9 +10,10 @@ import (
 	"sync"
 
 	"github.com/angelofallars/htmx-go"
-	"github.com/immanent-tech/www-immanent-tech/config"
-	"github.com/rs/cors"
+	"github.com/go-chi/cors"
 	slogctx "github.com/veqryn/slog-context"
+
+	"github.com/immanent-tech/www-immanent-tech/config"
 )
 
 // CORS contains values for various CORS settings derived from the environment.
@@ -54,19 +55,17 @@ var HTMXResponseHeaders = []string{
 	htmx.HeaderTrigger,
 }
 
-var corsOptions cors.Options
+var corsCfg CORS
 
-var loadCORS = sync.OnceValue(func() error {
-	corsSettings, err := config.Load[CORS](config.EnvPrefix + "CORS_")
-	if err != nil {
-		return fmt.Errorf("load cors config: %w", err)
+var loadCORS = sync.OnceValues(func() (*cors.Cors, error) {
+	if err := config.Load(config.EnvPrefix+"CORS_", &corsCfg); err != nil {
+		return nil, fmt.Errorf("load cors config: %w", err)
 	}
 
-	corsOptions = cors.Options{
-		AllowCredentials:    true,
-		MaxAge:              corsSettings.MaxAge,
-		AllowPrivateNetwork: true,
-		OptionsPassthrough:  true,
+	corsOptions := cors.Options{
+		AllowCredentials:   true,
+		MaxAge:             corsCfg.MaxAge,
+		OptionsPassthrough: true,
 		AllowedHeaders: append(
 			[]string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 			HTMXRequestHeaders...,
@@ -76,15 +75,16 @@ var loadCORS = sync.OnceValue(func() error {
 			HTMXResponseHeaders...,
 		),
 		AllowedMethods: []string{http.MethodGet, http.MethodHead, http.MethodPost, http.MethodOptions},
-		AllowedOrigins: corsSettings.AllowedOrigins,
+		AllowedOrigins: corsCfg.AllowedOrigins,
 	}
 
-	return nil
+	return cors.New(corsOptions), nil
 })
 
 // SetupCORS handles adding the appropriate headers for CORS to the request.
 func SetupCORS(next http.Handler) http.Handler {
-	if err := loadCORS(); err != nil {
+	cors, err := loadCORS()
+	if err != nil {
 		return http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 			slogctx.FromCtx(req.Context()).Error("Cannot load CORS config.",
 				slog.Any("error", err),
@@ -92,5 +92,5 @@ func SetupCORS(next http.Handler) http.Handler {
 			res.WriteHeader(http.StatusInternalServerError)
 		})
 	}
-	return cors.New(corsOptions).Handler(next)
+	return cors.Handler(next)
 }
