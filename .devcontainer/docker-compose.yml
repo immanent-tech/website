@@ -10,6 +10,7 @@ services:
       - /etc/localtime:/etc/localtime:ro,cached
     command: -c 'sleep infinity'
     user: vscode
+    network_mode: host
     group_add:
       - keep-groups
     cap_add:
@@ -17,8 +18,6 @@ services:
     security_opt:
       - seccomp:unconfined
     hostname: devcontainer
-    ports:
-      - 7001:7001
     ulimits:
       nofile:
         soft: 65535

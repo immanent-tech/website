@@ -29,7 +29,7 @@ cd $HOME && \
     echo 'source /home/vscode/google-cloud-sdk/path.fish.inc' >> ~/.config/fish/config.fish
 
 # Install pulumictl
-RUN curl -fsSL https://get.pulumi.com | sh
+curl -fsSL https://get.pulumi.com | sh
 echo 'set --export PULUMI_INSTALL "$HOME/.pulumi"' >> ~/.config/fish/config.fish
 echo 'set --export PATH $PULUMI_INSTALL/bin $PATH' >> ~/.config/fish/config.fish
 
