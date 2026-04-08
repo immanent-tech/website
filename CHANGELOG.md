@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0](https://github.com/immanent-tech/website/compare/v0.4.0...v0.5.0) (2026-04-08)
+
+
+### Features
+
+* **templates:** :sparkles: add producthunt embed for foragd ([70c3926](https://github.com/immanent-tech/website/commit/70c3926d0f2d8f93ba27160d15794b20ba9ef19b))
+
+
+### Performance Improvements
+
+* **assets:** :zap: reduce image file sizes ([ea88a4e](https://github.com/immanent-tech/website/commit/ea88a4e5f6cc02476ef3778184ace9858e0117a3))
+
 ## [0.4.0](https://github.com/immanent-tech/website/compare/v0.3.0...v0.4.0) (2026-02-06)
 
 
