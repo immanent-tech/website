@@ -5,7 +5,7 @@ set -x
 cd /workspace
 
 # Update JS packages with bun.
-npm update || exit -1
+npm clean-install || exit -1
 echo 'set --export PATH "/workspace/node_modules/.bin" $PATH' >> ~/.config/fish/config.fish
 
 # Install Go packages.
@@ -32,5 +32,10 @@ cd $HOME && \
 curl -fsSL https://get.pulumi.com | sh
 echo 'set --export PULUMI_INSTALL "$HOME/.pulumi"' >> ~/.config/fish/config.fish
 echo 'set --export PATH $PULUMI_INSTALL/bin $PATH' >> ~/.config/fish/config.fish
+
+# Setup docker buildx.
+docker buildx create --name default-rootless --driver=docker-container --driver-opt=image=moby/buildkit:buildx-stable-1-rootless --driver-opt default-load=true \
+    && docker buildx use default-rootless \
+    && docker buildx inspect --bootstrap default-rootless
 
 exit 0

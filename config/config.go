@@ -10,6 +10,8 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"runtime/debug"
+	"slices"
 	"strings"
 	"sync"
 
@@ -49,7 +51,37 @@ var CurrentEnvironment Environment
 
 // Init ensures the application will have appropriate Version and Envrionment vars set.
 var Init = sync.OnceValue(func() error {
-	// Set the version. This *must* be set to a valid value.
+	// Set the version from the environment.
+	if version := os.Getenv("FORAGD_VERSION"); version != "" {
+		Version = version
+	}
+	// Set the version using build info.
+	if Version == "_UNKNOWN_" {
+		var vcsRevision string
+		// var vcsTime string
+		var vcsModified bool
+		var vcsSystem string
+
+		if info, ok := debug.ReadBuildInfo(); ok {
+			for buildInfo := range slices.Values(info.Settings) {
+				switch buildInfo.Key {
+				case "vcs":
+					vcsSystem = buildInfo.Value
+				case "vcs.revision":
+					vcsRevision = buildInfo.Value
+				// case "vcs.time":
+				// 	vcsTime = s.Value
+				case "vcs.modified":
+					vcsModified = buildInfo.Value == "true"
+				}
+			}
+			Version = strings.Join([]string{vcsSystem, vcsRevision}, "-")
+			if vcsModified {
+				Version += "-dirty"
+			}
+		}
+	}
+	// If the version is unset, bail.
 	if Version == "_UNKNOWN_" {
 		return fmt.Errorf("%w: version not set correctly", ErrLoadConfig)
 	}

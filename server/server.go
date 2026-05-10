@@ -45,7 +45,7 @@ func Start(logger *slog.Logger) error {
 	var err error
 
 	// Set up routes.
-	rateLimiter := middlewares.NewRateLimiter()
+	// rateLimiter := middlewares.NewRateLimiter()
 
 	// Set up a new chi router.
 	router := chi.NewRouter()
@@ -63,7 +63,7 @@ func Start(logger *slog.Logger) error {
 		middlewares.ContentSecurityPolicy,
 		middlewares.GeneralSecurity,
 		middlewares.SaveCSRFToken,
-		middlewares.RateLimit(rateLimiter),
+		// middlewares.RateLimit(rateLimiter),
 		middleware.Compress(defaultCompressionLevel, compressMimetypes...),
 		middleware.StripSlashes,
 		middlewares.Etag,

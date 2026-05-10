@@ -1,7 +1,0 @@
-name: website
-description:  Pulumi deployment for Immanent Tech website
-runtime: go
-config:
-  pulumi:tags:
-    value:
-      pulumi:template: container-gcp-go

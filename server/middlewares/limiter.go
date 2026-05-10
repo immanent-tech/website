@@ -53,7 +53,7 @@ func RateLimit(ratelimiter RateLimiter) func(next http.Handler) http.Handler {
 				return
 			}
 			// Ignore rate-limiting from self.
-			if req.Host == "foragd.app" {
+			if req.Host == "immanent.tech" {
 				next.ServeHTTP(res, req)
 				return
 			}

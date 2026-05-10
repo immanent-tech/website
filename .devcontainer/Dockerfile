@@ -1,13 +1,21 @@
-FROM docker.io/alpine:3.23.3@sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659 AS builder
+FROM docker.io/alpine:3.23.4@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11 AS builder
 
 # Copy go from official image
-COPY --from=docker.io/golang:1.26.1-alpine-3.23@sha256:2389ebfa5b7f43eeafbd6be0c3700cc46690ef842ad962f6c5bd6be49ed82039 /usr/local/go/ /usr/local/go/
+COPY --from=docker.io/golang:1.26.3-alpine-3.23@sha256:91eda9776261207ea25fd06b5b7fed8d397dd2c0a283e77f2ab6e91bfa71079d /usr/local/go/ /usr/local/go/
 
 # Install additional packages
-RUN apk update && apk add sudo openssh curl git bash fish micro graphviz step-cli step-certificates nodejs npm cosign
+RUN apk update && apk add sudo openssh curl git bash fish micro graphviz xdg-utils \
+    step-cli step-certificates cosign \
+    nodejs npm \
+    docker buildkit rootlesskit slirp4netns libcap-setcap
 
 # Install starship
 RUN cd /tmp && curl -sS https://starship.rs/install.sh | sh -s -- -y || exit -1
+
+# Fix permissions
+RUN chmod 0755 /usr/bin/newuidmap /usr/bin/newgidmap && \
+    setcap cap_setuid=ep /usr/bin/newuidmap && \
+    setcap cap_setgid=ep /usr/bin/newgidmap
 
 # Add non-root user
 ARG USER_NAME=vscode
@@ -21,7 +29,12 @@ RUN addgroup --gid $USER_GID $USER_NAME \
     && echo "$USER_NAME ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER_NAME \
     && chmod 0440 /etc/sudoers.d/$USER_NAME
 
+RUN echo $USER_UID:100000:65536 > /etc/subuid
+RUN echo $USER_GID:100000:65536 > /etc/subgid
+
 USER $USER_NAME
+
+ENV _CONTAINERS_USERNS_CONFIGURED=""
 
 # The base container sets XDG_CACHE_HOME XDG_CONFIG_HOME specifically for the root user, we can't unset them in a way
 # that vscode will pick up, so we set them to values for the new user. Installing go extensions via vscode use these

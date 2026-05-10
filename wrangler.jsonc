@@ -1,0 +1,75 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "www",
+  "main": "index.ts",
+  "compatibility_date": "2025-05-10",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "GO_BACKEND",
+        "class_name": "ImmanentTech"
+      }
+    ]
+  },
+  "vars": {
+    "DEFAULT_PORT": "7001",
+    "IMMANENT_TECH_WEB_LOGLEVEL": "debug",
+    "IMMANENT_TECH_WEB_PORT": "7001",
+    "IMMANENT_TECH_WEB_HOST": "0.0.0.0",
+    "IMMANENT_TECH_WEB_READTIMEOUT": "120s",
+    "IMMANENT_TECH_WEB_WRITETIMEOUT": "30s",
+    "IMMANENT_TECH_WEB_IDLETIMEOUT": "900s",
+    "IMMANENT_TECH_WEB_BASEURL": "https: //immanent.tech",
+    "IMMANENT_TECH_WEB_CSP_BASEURI": "'self'",
+    "IMMANENT_TECH_WEB_CSP_DEFAULTSRC": "'self'",
+    "IMMANENT_TECH_WEB_CSP_STYLESRC": "'self' 'unsafe-inline'",
+    "IMMANENT_TECH_WEB_CSP_SCRIPTSRC": "'self' 'unsafe-eval' https://cdn.jsdelivr.net https://cloud.umami.is https://static.cloudflareinsights.com",
+    "IMMANENT_TECH_WEB_CSP_IMGSRC": "* data:",
+    "IMMANENT_TECH_WEB_CSP_MEDIASRC": "*",
+    "IMMANENT_TECH_WEB_CSP_FONTSRC": "'self'",
+    "IMMANENT_TECH_WEB_CSP_CONNECTSRC": "'self' https://cdn.jsdelivr.net https://cloud.umami.is https://static.cloudflareinsights.com",
+    "IMMANENT_TECH_WEB_CORS_MAXAGE": "300",
+    "IMMANENT_TECH_WEB_UMAMI_ID": "e420d8f8-506f-4703-b00c-2a70b87b26ea",
+  },
+  // Container image — built and pushed to Cloudflare's registry
+  "containers": [
+    {
+      "class_name": "ImmanentTech",
+      "image": "./Dockerfile", // path to your Go app's Dockerfile
+      "max_instances": 3, // scale up to 5 concurrent containers
+    }
+  ],
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "ImmanentTech"
+      ],
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "immanent.tech",
+      "zone_name": "immanent.tech",
+      "custom_domain": true,
+    }
+  ],
+  "observability": {
+    "enabled": false,
+    "head_sampling_rate": 1,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+      "invocation_logs": true
+    },
+    "traces": {
+      "enabled": false,
+      "persist": true,
+      "head_sampling_rate": 1
+    }
+  }
+}
