@@ -2,40 +2,45 @@
 /* SPDX-License-Identifier: 	AGPL-3.0-or-later */
 
 @import 'tailwindcss' source('../templates/**/*.{html,templ}');
-@plugin '@tailwindcss/typography';
-@plugin 'daisyui' {
-  themes:
-    light,
-    dark,
-    synthwave,
-  /* https://github.com/saadeghi/daisyui/issues/3882 */
+@import 'tailwindcss-safe-area';
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-visibility";
+@plugin "daisyui" {
+  themes: light, dark, synthwave;
   exclude: properties;
 }
 
-/* @plugin './catppuccinTheme.latte.ts';
-@plugin './catppuccinTheme.mocha.ts';
-
-@import './daisyui.css'; */
-
-/* Inter font styling */
-/* https://tailwindcss.com/plus/ui-blocks/documentation#add-the-inter-font-family */
-/* https://rsms.me/inter/#usage */
 :root {
-  font-family: Inter, sans-serif;
-  font-feature-settings:
-    'liga' 1,
-    'calt' 1,
-    'cv02' 1,
-    'cv03' 1,
-    'cv04' 1,
-    'cv11' 1;
-  --sidebar-width: var(--w-sm);
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--color-primary) transparent;
 }
 
-@supports (font-variation-settings: normal) {
-  :root {
-    font-family: InterVariable, sans-serif;
-    font-optical-sizing: auto;
+/* Global custom theme values. */
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-sans--font-feature-settings:
+    'liga' 1, 'ccmp' 1, 'calt' 1, 'ss01' 1, 'ss03' 1, 'cv02' 1, 'cv03' 1,
+    'cv04' 1, 'cv11' 1;
+  --sidebar-width: var(--w-sm);
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes grow-bar {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
   }
 }
 
@@ -45,6 +50,22 @@
 }
 
 @layer base {
+  @supports (font-variation-settings: normal) {
+    :root {
+      font-family: InterVariable, sans-serif;
+      font-optical-sizing: auto;
+    }
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  [data-loading] {
+    display: none;
+  }
+
   el-menu {
     @apply bg-base-300 outline-base-content/15 transition-discrete data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in origin-top-right rounded-md py-2 shadow-lg outline-1 -outline-offset-1 transition [--anchor-gap:--spacing(2.5)];
     a {

@@ -2,9 +2,8 @@
 // SPDX-License-Identifier: 	AGPL-3.0-or-later
 
 // htmx
-import 'htmx.org'
-import './htmx'
+import htmx from 'htmx.org/dist/htmx.esm'
+window.htmx = htmx
 
 // hyperscript
-import _hyperscript from 'hyperscript.org/dist/_hyperscript.js'
-_hyperscript.browserInit()
+import 'hyperscript.org'
