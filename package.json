@@ -1,23 +1,43 @@
 {
+  "source": [
+    "web/assets/scripts.js",
+    "web/assets/styles.css"
+  ],
+  "targets": {
+    "default": {
+      "distDir": "web/content"
+    }
+  },
   "dependencies": {
+    "@cloudflare/containers": "^0.3.3",
     "@tailwindcss/cli": "^4.1.18",
     "daisyui": "^5.5.14",
     "htmx.org": "^2.0.8",
     "hyperscript.org": "^0.9.14",
-    "tailwindcss": "^4.1.18"
+    "parcel": "^2.16.4",
+    "tailwindcss": "^4.1.18",
+    "tailwindcss-safe-area": "^1.3.0",
+    "tailwindcss-visibility": "^1.0.1"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250508.0",
     "@prettier/plugin-xml": "^3.4.2",
+    "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
-    "esbuild": "0.27.2",
     "prettier": "^3.8.1",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "prettier-plugin-tailwindcss-extra": "^0.2.0",
-    "release-please": "^17.2.0"
+    "release-please": "^17.2.0",
+    "typescript": "^5.5.2",
+    "wrangler": "^4.0.0"
   },
   "scripts": {
-    "build:js": "esbuild ./web/assets/scripts.js --bundle --sourcemap --outdir=./web/content/",
-    "build:css": "tailwindcss -i ./web/assets/styles.css -o ./web/content/styles.css --minify --map"
+    "build:prod": "parcel build --no-source-maps",
+    "build:dev": "parcel build --no-optimize",
+    "templ:generate": "go run github.com/a-h/templ/cmd/templ@latest generate -path web"
+  },
+  "@parcel/resolver-default": {
+    "packageExports": true
   }
 }

@@ -31,6 +31,7 @@ node_modules/
 vendor/
 
 # Temp folders.
+.parcel-cache/
 tmp/
 
 # Logs.
@@ -54,4 +55,11 @@ logs/
 *.tmp
 *.out
 
+localhost.crt
+localhost.key
+
+pkg/feeds/test
+deployments/
+.devcontainer/.step.password
 .devcontainer/data
+test/**

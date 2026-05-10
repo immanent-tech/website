@@ -13,11 +13,11 @@ env_files = [".devcontainer/.env", ".env.development"]
 # Add additional arguments when running binary (bin/full_bin). Will run './tmp/main hello world'.
 args_bin = [
     "--no-log-file",
-    "--profile='heapprofile=tmp/server-heap.prof;cpuprofile=tmp/server-cpu.prof;webui=true'",
+    "--profile='heapprofile=.devcontainer/data/server-heap.prof;cpuprofile=.devcontainer/data/server-cpu.prof;webui=true'",
     "serve",
 ]
 # Just plain old shell command. You could use `make` as well.
-cmd = 'go build -ldflags="-X github.com/immanent-tech/www-immanent-tech/config.Version=$(git describe --tags --always --long --dirty)" -o ./tmp/www .'
+cmd = 'go build -o ./tmp/www .'
 # Binary file yields from 'cmd', will be deprecated soon, recommend using entrypoint.
 bin = "tmp/www"
 # Entrypoint binary relative to root. First item is the executable, more items are default arguments.
@@ -49,11 +49,7 @@ include_ext = ["go", "templ", "html", "json", "js", "ts", "css", "scss", "md"]
 # This log file is placed in your tmp_dir.
 log = "air.log"
 # Array of commands to run before each build
-pre_cmd = [
-    "npm run build:css",
-    "npm run build:js",
-    "go run github.com/a-h/templ/cmd/templ@latest generate -path web",
-]
+pre_cmd = ["npm run build:dev", "npm run templ:generate"]
 # Array of commands to run after ^C
 # post_cmd = ["echo 'hello air' > post_cmd.txt"]
 # Watch these directories if you specified.

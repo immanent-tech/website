@@ -3,7 +3,7 @@
 
 # Alpine base.
 # https://hub.docker.com/_/alpine/
-FROM --platform=$BUILDPLATFORM docker.io/alpine:3.23.2@sha256:865b95f46d98cf867a156fe4a135ad3fe50d2056aa3f25ed31662dff6da4eb62 AS builder
+FROM --platform=$BUILDPLATFORM docker.io/alpine:3.23.4@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11 AS builder
 
 ARG TARGETOS
 ARG TARGETARCH
@@ -13,7 +13,7 @@ WORKDIR /build
 
 # Copy go from official image.
 # https://hub.docker.com/_/golang
-COPY --from=docker.io/golang:1.25.5-alpine@sha256:ac09a5f469f307e5da71e766b0bd59c9c49ea460a528cc3e6686513d64a6f1fb /usr/local/go/ /usr/local/go/
+COPY --from=docker.io/golang:1.26.3-alpine-3.23@sha256:91eda9776261207ea25fd06b5b7fed8d397dd2c0a283e77f2ab6e91bfa71079d /usr/local/go/ /usr/local/go/
 # Update $PATH.
 ENV PATH="/root/go/bin:/usr/local/go/bin:/usr/local/bin:${PATH}"
 
@@ -29,9 +29,9 @@ COPY . .
 
 # install and build/bundle frontend assets
 RUN <<EOF
-npm install
-npm run build:css
-npm run build:js
+npm clean-install && \
+    npm run build:prod && \
+    npm version patch
 EOF
 
 # Set necessary environment variables and build your project.
@@ -41,7 +41,7 @@ RUN go build -ldflags="-s -w -X github.com/immanent-tech/www-immanent-tech/confi
 # compress binary with upx
 RUN upx --best --lzma webserver
 
-FROM docker.io/alpine:3.23.2@sha256:865b95f46d98cf867a156fe4a135ad3fe50d2056aa3f25ed31662dff6da4eb62 AS server
+FROM docker.io/alpine:3.23.4@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11 AS server
 
 ENV IMMANENT_TECH_WEB_CONTAINER=1
 
