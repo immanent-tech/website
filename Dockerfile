@@ -1,9 +1,15 @@
 # Copyright 2025 Joshua Rich <joshua.rich@gmail.com>.
 # SPDX-License-Identifier: 	AGPL-3.0-or-later
 
+ARG ALPINE_VERSION=3.23.4@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11
+ARG GOLANG_VERSION=1.26.3-alpine-3.23@sha256:91eda9776261207ea25fd06b5b7fed8d397dd2c0a283e77f2ab6e91bfa71079d
+
+# Copy go from official image.
+# https://hub.docker.com/_/golang
+FROM docker.io/golang:${GOLANG_VERSION} AS golang
 # Alpine base.
 # https://hub.docker.com/_/alpine/
-FROM --platform=$BUILDPLATFORM docker.io/alpine:3.23.4@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11 AS builder
+FROM --platform=$BUILDPLATFORM docker.io/alpine:${ALPINE_VERSION} AS builder
 
 ARG TARGETOS
 ARG TARGETARCH
@@ -11,9 +17,7 @@ ARG APPVERSION
 
 WORKDIR /build
 
-# Copy go from official image.
-# https://hub.docker.com/_/golang
-COPY --from=docker.io/golang:1.26.3-alpine-3.23@sha256:91eda9776261207ea25fd06b5b7fed8d397dd2c0a283e77f2ab6e91bfa71079d /usr/local/go/ /usr/local/go/
+COPY --from=golang /usr/local/go/ /usr/local/go/
 # Update $PATH.
 ENV PATH="/root/go/bin:/usr/local/go/bin:/usr/local/bin:${PATH}"
 
