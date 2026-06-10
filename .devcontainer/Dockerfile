@@ -1,7 +1,11 @@
-FROM docker.io/alpine:3.23.4@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11 AS builder
+ARG ALPINE_VERSION=3.23.4
+ARG GOLANG_VERSION=1.26.4-alpine3.23
+
+FROM docker.io/golang:${GOLANG_VERSION} AS golang
+FROM docker.io/alpine:${ALPINE_VERSION} AS builder
 
 # Copy go from official image
-COPY --from=docker.io/golang:1.26.3-alpine-3.23@sha256:91eda9776261207ea25fd06b5b7fed8d397dd2c0a283e77f2ab6e91bfa71079d /usr/local/go/ /usr/local/go/
+COPY --from=golang /usr/local/go/ /usr/local/go/
 
 # Install additional packages
 RUN apk update && apk add sudo openssh curl git bash fish micro graphviz xdg-utils \

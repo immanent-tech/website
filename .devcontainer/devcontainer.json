@@ -33,7 +33,9 @@
                 "DotJoshJohnson.xml",
                 "redhat.vscode-xml",
                 "davidlday.languagetool-linter",
-                "nize.oklch-preview"
+                "nize.oklch-preview",
+                "adam-bender.commit-message-editor",
+                "oderwat.indent-rainbow"
             ]
         }
     }
