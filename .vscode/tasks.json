@@ -20,24 +20,11 @@
         {
             "label": "Server: Deploy",
             "type": "shell",
-            "command": "pulumi up",
+            "command": "wrangler deploy",
             "problemMatcher": [],
-            "options": {
-                "cwd": "${workspaceFolder}/deploy"
-            }
-        },
-        {
-            "label": "Pulumi: Update",
-            "type": "shell",
-            "command": "curl -sSL https://get.pulumi.com | sh"
         },
     ],
     "inputs": [
-        {
-            "type": "promptString",
-            "id": "schemas",
-            "description": "list of schemas to update (leave blank for all schemas)"
-        },
         {
             "type": "pickString",
             "id": "environment",
