@@ -84,7 +84,8 @@ templ Page(template templ.Component, options ...PageOption) {
 			@p.OGMetadata.Render()
 			<link rel="canonical" href={ p.OGMetadata.URL.Value } hx-preserve="true"/>
 			<link rel="apple-touch-icon" href="/content/apple-touch-icon.png" hx-preserve="true"/>
-			<link rel="icon" href="/content/favicon.ico" type="image/svg+xml" hx-preserve="true"/>
+			<link rel="icon" href="/content/favicon.ico" hx-preserve="true"/>
+			<link rel="icon" href="/content/favicon.svg" type="image/svg+xml" hx-preserve="true"/>
 			<link rel="shortcut icon" href="/content/favicon.ico" type="image/x-icon" hx-preserve="true"/>
 			<link href={ "/content/fonts/inter/inter.css?v=" + config.Version } rel="stylesheet" hx-preserve="true"/>
 			if config.CurrentEnvironment == config.EnvProduction {
