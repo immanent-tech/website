@@ -16,6 +16,10 @@ import (
 	"github.com/immanent-tech/www-immanent-tech/config"
 )
 
+const (
+	defaultMaxAge = 300
+)
+
 // CORS contains values for various CORS settings derived from the environment.
 type CORS struct {
 	AllowedOrigins  []string `koanf:"allowedorigins"`
@@ -55,7 +59,9 @@ var HTMXResponseHeaders = []string{
 	htmx.HeaderTrigger,
 }
 
-var corsCfg CORS
+var corsCfg = CORS{
+	MaxAge: defaultMaxAge,
+}
 
 var loadCORS = sync.OnceValues(func() (*cors.Cors, error) {
 	if err := config.Load(config.EnvPrefix+"CORS_", &corsCfg); err != nil {
