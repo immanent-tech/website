@@ -46,6 +46,12 @@ func main() {
 
 	logger := logging.New(logging.Options{LogLevel: CLI.LogLevel, NoLogFile: CLI.NoLogFile})
 
+	if err := config.Init(); err != nil {
+		slog.Error("Could not initialize config.",
+			slog.Any("error", err))
+		os.Exit(-1)
+	}
+
 	// Enable profiling if requested.
 	if CLI.ProfileFlags != nil {
 		if err := logging.StartProfiling(logger, CLI.ProfileFlags); err != nil {

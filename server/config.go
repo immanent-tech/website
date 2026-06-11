@@ -21,7 +21,12 @@ const (
 
 var compressMimetypes = []string{"text/html", "text/css", "text/javascript", "font/woff2", "image/svg+xml"}
 
-var cfg Config
+var cfg = Config{
+	Host:         "0.0.0.0",
+	ReadTimeout:  "120s",
+	WriteTimeout: "30s",
+	IdleTimeout:  "900s",
+}
 
 type timeout string
 

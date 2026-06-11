@@ -104,6 +104,9 @@ func Start(logger *slog.Logger) error {
 
 	logger.Info("Starting server...",
 		slog.String("address", svr.Addr),
+		slog.Duration("read_timeout", cfg.ReadTimeout.Duration()),
+		slog.Duration("write_timeout", cfg.WriteTimeout.Duration()),
+		slog.Duration("idle_timeout", cfg.IdleTimeout.Duration()),
 		slog.Time("start_time", time.Now()),
 	)
 

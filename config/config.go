@@ -12,6 +12,7 @@ import (
 	"runtime/debug"
 	"slices"
 	"strings"
+	"sync"
 
 	"github.com/immanent-tech/www-immanent-tech/validation"
 	"github.com/knadh/koanf/providers/env/v2"
@@ -44,7 +45,7 @@ var (
 
 type appConfig struct {
 	// Version is the application/stack version.
-	Version string `koanf:"version" validate:"required,ne=_UNKNOWN_"`
+	Version string `koanf:"version"`
 	// CurrentEnvironment is the environment in which the app is running (i.e., production, development). Defaults to
 	// "development".
 	Environment Environment `koanf:"environment" validate:"required,oneof=production development"`
@@ -55,7 +56,7 @@ type appConfig struct {
 var cfg *appConfig
 
 // Init ensures the application will have appropriate Version and Envrionment vars set.
-func init() {
+var Init = sync.OnceValue(func() error {
 	cfg = &appConfig{
 		Environment: EnvDevelopment,
 		Version:     "_UNKNOWN_",
@@ -85,13 +86,14 @@ func init() {
 	}
 
 	if err := Load(EnvPrefix, cfg); err != nil {
-		panic(fmt.Errorf("load base config: %w", err))
+		return fmt.Errorf("load base config: %w", err)
 	}
 
 	if err := validation.Validate.Struct(cfg); err != nil {
-		panic(fmt.Errorf("validate base config: %w", err))
+		return fmt.Errorf("validate base config: %w", err)
 	}
-}
+	return nil
+})
 
 func GetVersion() string {
 	return cfg.Version
