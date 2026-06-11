@@ -18,8 +18,6 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/justinas/nosurf"
 	slogctx "github.com/veqryn/slog-context"
-	"golang.org/x/net/http2"
-	"golang.org/x/net/http2/h2c"
 
 	"github.com/immanent-tech/www-immanent-tech/server/handlers"
 	"github.com/immanent-tech/www-immanent-tech/server/middlewares"
@@ -41,8 +39,6 @@ func Start(logger *slog.Logger) error {
 	if err := loadConfigOnce(); err != nil {
 		return fmt.Errorf("unable to load server config: %w", err)
 	}
-
-	var err error
 
 	// Set up routes.
 	// rateLimiter := middlewares.NewRateLimiter()
@@ -84,27 +80,27 @@ func Start(logger *slog.Logger) error {
 		r.Get("/", handlers.NewLandingPage())
 		r.Get("/work", handlers.NewWorkPage())
 		r.Get("/contact", handlers.Contact())
+		r.Post("/contact", handlers.HandleSubmitContact())
 	})
 
 	csrfRouter := nosurf.New(router)
 	csrfRouter.SetFailureHandler(middlewares.CSRFError())
 
-	h2s := &http2.Server{}
 	svr := &http.Server{
-		Handler:      h2c.NewHandler(csrfRouter, h2s),
-		Addr:         net.JoinHostPort(cfg.Host, strconv.FormatUint(cfg.Port, 10)),
-		ReadTimeout:  cfg.ReadTimeout.Duration(),
-		WriteTimeout: cfg.WriteTimeout.Duration(),
-		IdleTimeout:  cfg.IdleTimeout.Duration(),
+		Protocols:         new(http.Protocols),
+		Handler:           router,
+		Addr:              net.JoinHostPort(cfg.Host, strconv.FormatUint(cfg.Port, 10)),
+		ReadHeaderTimeout: cfg.ReadTimeout.Duration(),
+		ReadTimeout:       cfg.ReadTimeout.Duration(),
+		WriteTimeout:      cfg.WriteTimeout.Duration(),
+		IdleTimeout:       cfg.IdleTimeout.Duration(),
 		BaseContext: func(_ net.Listener) context.Context {
 			return ctx
 		},
 	}
-
-	err = http2.ConfigureServer(svr, h2s)
-	if err != nil {
-		return fmt.Errorf("unable to configure server for H2C: %w", err)
-	}
+	svr.Protocols.SetUnencryptedHTTP2(true) // Enable H2C (HTTP/2 cleartext)
+	svr.Protocols.SetHTTP1(true)            // Enable HTTP/1.1
+	svr.Protocols.SetHTTP2(false)           // Explicitly disable encrypted HTTP/2 (HTTPS)
 
 	logger.Info("Starting server...",
 		slog.String("address", svr.Addr),
@@ -138,14 +134,16 @@ func Start(logger *slog.Logger) error {
 	defer cancel()
 
 	// Trigger graceful shutdown
-	logger.Info("Shutting down server...")
 	if err := svr.Shutdown(shutdownCtx); err != nil {
 		logger.Error("Server failed to shutdown gracefully.",
 			slog.Any("error", err),
+			slog.Time("stop_time", time.Now()),
 		)
 	}
 
-	logger.Info("Server shutdown gracefully")
+	logger.Info("Server shutdown gracefully",
+		slog.Time("stop_time", time.Now()),
+	)
 
 	return nil
 }

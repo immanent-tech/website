@@ -212,13 +212,13 @@ func Page(template templ.Component, options ...PageOption) templ.Component {
 		var templ_7745c5c3_Var7 templ.SafeURL
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinURLErrs(p.OGMetadata.URL.Value)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/templates.templ`, Line: 85, Col: 54}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/templates.templ`, Line: 84, Col: 54}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" hx-preserve=\"true\"><link rel=\"apple-touch-icon\" href=\"/content/apple-touch-icon.png\" hx-preserve=\"true\"><link rel=\"icon\" href=\"/content/favicon.ico\" hx-preserve=\"true\"><link rel=\"icon\" href=\"/content/favicon.svg\" type=\"image/svg+xml\" hx-preserve=\"true\"><link rel=\"shortcut icon\" href=\"/content/favicon.ico\" type=\"image/x-icon\" hx-preserve=\"true\"><link href=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "\" hx-preserve=\"true\"><link rel=\"apple-touch-icon\" href=\"/content/apple-touch-icon.png\" hx-preserve=\"true\"><link rel=\"icon\" href=\"/content/favicon.ico\" hx-preserve=\"true\"><link rel=\"icon\" href=\"/content/favicon.svg\" type=\"image/svg+xml\" hx-preserve=\"true\"><link rel=\"shortcut icon\" href=\"/content/favicon.ico\" type=\"image/x-icon\" hx-preserve=\"true\"><link rel=\"preconnect\" href=\"https://challenges.cloudflare.com\"><link href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -392,7 +392,7 @@ func Page(template templ.Component, options ...PageOption) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "</main></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "</main><div aria-live=\"assertive\" class=\"pointer-events-none fixed inset-0 flex items-end sm:items-start z-999\"><div id=\"notifications\" class=\"flex w-full flex-col items-center space-y-4 m-4 sm:items-end\"></div></div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

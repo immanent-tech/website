@@ -12,7 +12,12 @@ package templates
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/immanent-tech/www-immanent-tech/web/templates/partials"
+import (
+	"github.com/immanent-tech/www-immanent-tech/config"
+	"github.com/immanent-tech/www-immanent-tech/web/helpers/mailto"
+	"github.com/immanent-tech/www-immanent-tech/web/templates/partials"
+	"os"
+)
 
 func Contact() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -43,7 +48,62 @@ func Contact() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"relative isolate mx-auto max-w-7xl px-6 lg:px-8 mt-36\"><div class=\"mx-auto max-w-2xl lg:mx-0\"><h2 class=\"text-4xl font-semibold tracking-tight text-pretty sm:text-5xl\">Contact</h2><p class=\"mt-6 text-lg/8\">Want to get in touch with Immanent Tech? Send us an <a href=\"mailto:support@immanent.tech\" class=\"link\">email</a>.</p></div></div></div>")
+		if config.CurrentEnvironment == config.EnvProduction {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<script src=\"https://challenges.cloudflare.com/turnstile/v0/api.js\" async defer></script>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div class=\"relative isolate mx-auto max-w-7xl px-6 lg:px-8 mt-36\"><div class=\"mx-auto sm:max-w-4xl\"><div class=\"min-w-0 flex-1\"><h1 class=\"text-2xl/7 font-bold sm:truncate sm:text-3xl sm:tracking-tight\">Contact Us</h1></div><section id=\"email\" class=\"mt-12\"><div class=\"border-b border-neutral pb-5\"><h2 class=\"text-base font-semibold\">Email</h2></div><p class=\"mt-2 max-w-4xl\">Use this form to report to contact us. If you are reporting an issue with Foragd, please report it <a href=\"https://foragd.app/issue\" class=\"link\">through the app</a>.</p><p class=\"mt-2 max-w-4xl\">Alternatively, you can <a class=\"link\" href=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var2 templ.SafeURL
+		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(mailto.Build("hello@immanent.tech", mailto.WithSubject("About Immanent Tech")))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/contact.templ`, Line: 33, Col: 130}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\">email us</a> instead.</p><form hx-post=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var3 string
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.ResolveAttributeValue("/contact")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/contact.templ`, Line: 36, Col: 26}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var3)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\" hx-target=\"#contact\" hx-encoding=\"multipart/form-data\" hx-swap=\"none\" hx-push-url=\"false\" class=\"mt-12\"><div class=\"space-y-12\"><div class=\"mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6\"><div class=\"sm:col-span-4\"><label for=\"email\" class=\"block text-sm/6 font-medium\">Email address</label><div class=\"mt-2\"><input id=\"email\" type=\"email\" name=\"contact_email\" autocomplete=\"email\" required class=\"input bg-base-300 brightness-95 input-primary\"></div></div><div class=\"col-span-full\"><label for=\"about\" class=\"block text-sm/6 font-medium\">Details</label><div class=\"mt-2\"><textarea id=\"details\" name=\"details\" rows=\"5\" class=\"textarea w-full bg-base-300 brightness-95 textarea-primary sm:max-w-prose\"></textarea></div><p class=\"text-neutral mt-3 text-sm/6\">Add as much detail as you like.</p></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if config.CurrentEnvironment == config.EnvProduction {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, " <div class=\"col-span-full\"><div class=\"cf-turnstile\" data-sitekey=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 string
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue(os.Getenv("CLOUDFLARE_TURNSTILE_KEY"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/contact.templ`, Line: 70, Col: 88}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "\"></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</div></div><div class=\"mt-6 flex w-full items-center justify-end gap-x-6 sm:max-w-3xl\"><button type=\"submit\" class=\"btn btn-primary\"><span class=\"show-loading items-center\"><span class=\"loading mr-3 loading-spinner\"></span> <span class=\"text-sm/6\">Processing</span></span> <span class=\"hide-loading items-center\"><span class=\"text-sm/6\">Submit</span></span></button></div></form></section><section id=\"details\" class=\"mt-12\"><div class=\"border-b border-neutral pb-5\"><h2 class=\"text-base font-semibold\">Business Details</h2></div><ul class=\"mt-4\"><li>ABN: 57677646670</li></ul><ul class=\"mt-4\"><li>PO Box 528</li><li>HAMILTON CENTRAL QLD 4007</li></ul></section></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
