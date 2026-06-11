@@ -44,12 +44,6 @@ func main() {
 
 	cmd := kong.Parse(&CLI, kong.Bind())
 
-	if err := config.Init(); err != nil {
-		slog.Error("Could not initialize config.",
-			slog.Any("error", err))
-		os.Exit(-1)
-	}
-
 	logger := logging.New(logging.Options{LogLevel: CLI.LogLevel, NoLogFile: CLI.NoLogFile})
 
 	// Enable profiling if requested.

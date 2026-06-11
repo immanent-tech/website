@@ -16,7 +16,6 @@ import (
 	"github.com/immanent-tech/www-immanent-tech/config"
 	"github.com/immanent-tech/www-immanent-tech/web/helpers/mailto"
 	"github.com/immanent-tech/www-immanent-tech/web/templates/partials"
-	"os"
 )
 
 func Contact() templ.Component {
@@ -48,7 +47,7 @@ func Contact() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if config.CurrentEnvironment == config.EnvProduction {
+		if config.IsProduction() {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<script src=\"https://challenges.cloudflare.com/turnstile/v0/api.js\" async defer></script>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -61,7 +60,7 @@ func Contact() templ.Component {
 		var templ_7745c5c3_Var2 templ.SafeURL
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(mailto.Build("hello@immanent.tech", mailto.WithSubject("About Immanent Tech")))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/contact.templ`, Line: 33, Col: 130}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/contact.templ`, Line: 32, Col: 130}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -74,7 +73,7 @@ func Contact() templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.ResolveAttributeValue("/contact")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/contact.templ`, Line: 36, Col: 26}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/contact.templ`, Line: 35, Col: 26}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var3)
 		if templ_7745c5c3_Err != nil {
@@ -84,26 +83,13 @@ func Contact() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if config.CurrentEnvironment == config.EnvProduction {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, " <div class=\"col-span-full\"><div class=\"cf-turnstile\" data-sitekey=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue(os.Getenv("CLOUDFLARE_TURNSTILE_KEY"))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/contact.templ`, Line: 70, Col: 88}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "\"></div></div>")
+		if config.IsProduction() {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, " <div class=\"col-span-full\"><div class=\"cf-turnstile\" data-sitekey=\"0x4AAAAAADihXwSAc4mjZ1Im\"></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</div></div><div class=\"mt-6 flex w-full items-center justify-end gap-x-6 sm:max-w-3xl\"><button type=\"submit\" class=\"btn btn-primary\"><span class=\"show-loading items-center\"><span class=\"loading mr-3 loading-spinner\"></span> <span class=\"text-sm/6\">Processing</span></span> <span class=\"hide-loading items-center\"><span class=\"text-sm/6\">Submit</span></span></button></div></form></section><section id=\"details\" class=\"mt-12\"><div class=\"border-b border-neutral pb-5\"><h2 class=\"text-base font-semibold\">Business Details</h2></div><ul class=\"mt-4\"><li>ABN: 57677646670</li></ul><ul class=\"mt-4\"><li>PO Box 528</li><li>HAMILTON CENTRAL QLD 4007</li></ul></section></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</div></div><div class=\"mt-6 flex w-full items-center justify-end gap-x-6 sm:max-w-3xl\"><button type=\"submit\" class=\"btn btn-primary\"><span class=\"show-loading items-center\"><span class=\"loading mr-3 loading-spinner\"></span> <span class=\"text-sm/6\">Processing</span></span> <span class=\"hide-loading items-center\"><span class=\"text-sm/6\">Submit</span></span></button></div></form></section><section id=\"details\" class=\"mt-12\"><div class=\"border-b border-neutral pb-5\"><h2 class=\"text-base font-semibold\">Business Details</h2></div><ul class=\"mt-4\"><li>ABN: 57677646670</li></ul><ul class=\"mt-4\"><li>PO Box 528</li><li>HAMILTON CENTRAL QLD 4007</li></ul></section></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

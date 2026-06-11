@@ -87,18 +87,18 @@ templ Page(template templ.Component, options ...PageOption) {
 			<link rel="icon" href="/content/favicon.svg" type="image/svg+xml" hx-preserve="true"/>
 			<link rel="shortcut icon" href="/content/favicon.ico" type="image/x-icon" hx-preserve="true"/>
 			<link rel="preconnect" href="https://challenges.cloudflare.com"/>
-			<link href={ "/content/fonts/inter/inter.css?v=" + config.Version } rel="stylesheet" hx-preserve="true"/>
-			if config.CurrentEnvironment == config.EnvProduction {
+			<link href={ "/content/fonts/inter/inter.css?v=" + config.GetVersion() } rel="stylesheet" hx-preserve="true"/>
+			if config.IsProduction() {
 				<script defer src="https://cloud.umami.is/script.js" data-website-id={ os.Getenv(config.EnvPrefix + "UMAMI_ID") } crossorigin="anonymous" hx-preserve="true"></script>
 			}
 			<script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module" crossorigin="anonymous" hx-preserve="true"></script>
-			switch config.CurrentEnvironment {
-				case config.EnvDevelopment:
+			switch  {
+				case !config.IsProduction():
 					<script src={ "/content/scripts.js?v=" + time.Now().Format("2006-01-02T15:04:05.00Z07:00") } hx-preserve="true"></script>
 					<link href={ "/content/styles.css?v=" + time.Now().Format("2006-01-02T15:04:05.00Z07:00") } rel="stylesheet" hx-preserve="true"/>
 				default:
-					<script src={ "/content/scripts.js?v=" + config.Version } hx-preserve="true"></script>
-					<link href={ "/content/styles.css?v=" + config.Version } rel="stylesheet" hx-preserve="true"/>
+					<script src={ "/content/scripts.js?v=" + config.GetVersion() } hx-preserve="true"></script>
+					<link href={ "/content/styles.css?v=" + config.GetVersion() } rel="stylesheet" hx-preserve="true"/>
 			}
 			// Site-wide htmx config.
 			<meta

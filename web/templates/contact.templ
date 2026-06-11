@@ -7,13 +7,12 @@ import (
 	"github.com/immanent-tech/www-immanent-tech/config"
 	"github.com/immanent-tech/www-immanent-tech/web/helpers/mailto"
 	"github.com/immanent-tech/www-immanent-tech/web/templates/partials"
-	"os"
 )
 
 templ Contact() {
 	<div class="bg-base-100">
 		@partials.Header()
-		if config.CurrentEnvironment == config.EnvProduction {
+		if config.IsProduction() {
 			<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 		}
 		<div class="relative isolate mx-auto max-w-7xl px-6 lg:px-8 mt-36">
@@ -64,10 +63,10 @@ templ Contact() {
 									</div>
 									<p class="text-neutral mt-3 text-sm/6">Add as much detail as you like.</p>
 								</div>
-								if config.CurrentEnvironment == config.EnvProduction {
+								if config.IsProduction() {
 									// Cloudflare turnstile.
 									<div class="col-span-full">
-										<div class="cf-turnstile" data-sitekey={ os.Getenv("CLOUDFLARE_TURNSTILE_KEY") }></div>
+										<div class="cf-turnstile" data-sitekey="0x4AAAAAADihXwSAc4mjZ1Im"></div>
 									</div>
 								}
 							</div>
