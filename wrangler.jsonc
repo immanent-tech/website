@@ -18,24 +18,14 @@
     "DEFAULT_PORT": "7001",
     "IMMANENT_TECH_WEB_LOGLEVEL": "debug",
     "IMMANENT_TECH_WEB_PORT": "7001",
-    "IMMANENT_TECH_WEB_HOST": "0.0.0.0",
-    "IMMANENT_TECH_WEB_READTIMEOUT": "120s",
-    "IMMANENT_TECH_WEB_WRITETIMEOUT": "30s",
-    "IMMANENT_TECH_WEB_IDLETIMEOUT": "900s",
-    "IMMANENT_TECH_WEB_BASEURL": "https: //immanent.tech",
-    "IMMANENT_TECH_WEB_CSP_BASEURI": "'self'",
-    "IMMANENT_TECH_WEB_CSP_DEFAULTSRC": "'self'",
-    "IMMANENT_TECH_WEB_CSP_STYLESRC": "'self' 'unsafe-inline'",
+    "IMMANENT_TECH_WEB_BASEURL": "https://immanent.tech",
     "IMMANENT_TECH_WEB_CSP_SCRIPTSRC": "'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net cloud.umami.is static.cloudflareinsights.com challenges.cloudflare.com",
-    "IMMANENT_TECH_WEB_CSP_IMGSRC": "* data:",
-    "IMMANENT_TECH_WEB_CSP_MEDIASRC": "*",
-    "IMMANENT_TECH_WEB_CSP_FONTSRC": "'self'",
     "IMMANENT_TECH_WEB_CSP_CONNECTSRC": "'self' *.foragd.app foragd.app  cdn.jsdelivr.net cloudflareinsights.com gateway.umami.is api-gateway.umami.dev",
-    "IMMANENT_TECH_WEB_CORS_MAXAGE": "300",
     "IMMANENT_TECH_WEB_UMAMI_ID": "e420d8f8-506f-4703-b00c-2a70b87b26ea",
     "IMMANENT_TECH_WEB_CORS_ALLOWEDORIGINS": "cloud.umami.is static.cloudflareinsights.com cdn.jsdelivr.net",
     "IMMANENT_TECH_WEB_CSP_FRAMESRC": "challenges.cloudflare.com",
     "IMMANENT_TECH_WEB_ENVIRONMENT": "production",
+    "IMMANENT_TECH_WEB_VERSION": "v0.0.1",
   },
   // Container image — built and pushed to Cloudflare's registry
   "containers": [
@@ -58,10 +48,12 @@
       "pattern": "immanent.tech",
       "zone_name": "immanent.tech",
       "custom_domain": true,
+      "enabled": true,
+      "previews_enabled": false
     }
   ],
   "observability": {
-    "enabled": false,
+    "enabled": true,
     "head_sampling_rate": 1,
     "logs": {
       "enabled": true,
