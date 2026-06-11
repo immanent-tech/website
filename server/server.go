@@ -83,7 +83,7 @@ func Start(logger *slog.Logger) error {
 		)
 		r.Get("/", handlers.NewLandingPage())
 		r.Get("/work", handlers.NewWorkPage())
-		r.Get("/support", handlers.Support())
+		r.Get("/contact", handlers.Contact())
 	})
 
 	csrfRouter := nosurf.New(router)

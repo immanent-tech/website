@@ -14,7 +14,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import "github.com/immanent-tech/www-immanent-tech/web/templates/partials"
 
-func Support() templ.Component {
+func Contact() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -43,7 +43,7 @@ func Support() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"relative isolate mx-auto max-w-7xl px-6 lg:px-8 mt-36\"><div class=\"mx-auto max-w-2xl lg:mx-0\"><h2 class=\"text-4xl font-semibold tracking-tight text-pretty sm:text-5xl\">Support</h2><p class=\"mt-6 text-lg/8\">Encountering a problem or issue with an app created/managed by Immanent Tech? Send us an <a href=\"mailto:support@immanent.tech\" class=\"link\">email</a>.</p></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"relative isolate mx-auto max-w-7xl px-6 lg:px-8 mt-36\"><div class=\"mx-auto max-w-2xl lg:mx-0\"><h2 class=\"text-4xl font-semibold tracking-tight text-pretty sm:text-5xl\">Contact</h2><p class=\"mt-6 text-lg/8\">Want to get in touch with Immanent Tech? Send us an <a href=\"mailto:support@immanent.tech\" class=\"link\">email</a>.</p></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
