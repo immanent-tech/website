@@ -9,7 +9,7 @@
     }
   },
   "dependencies": {
-    "@cloudflare/containers": "^0.3.3",
+    "@cloudflare/containers": "^0.3.7",
     "@tailwindcss/cli": "^4.1.18",
     "daisyui": "^5.5.14",
     "htmx.org": "^2.0.8",
