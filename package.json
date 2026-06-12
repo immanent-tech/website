@@ -30,7 +30,7 @@
     "prettier-plugin-tailwindcss-extra": "^0.2.0",
     "release-please": "^17.2.0",
     "typescript": "^5.5.2",
-    "wrangler": "^4.0.0"
+    "wrangler": "^4.98.0"
   },
   "scripts": {
     "build:prod": "parcel build --no-source-maps",
