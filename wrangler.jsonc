@@ -25,7 +25,7 @@
     "IMMANENT_TECH_WEB_CORS_ALLOWEDORIGINS": "cloud.umami.is static.cloudflareinsights.com cdn.jsdelivr.net",
     "IMMANENT_TECH_WEB_CSP_FRAMESRC": "challenges.cloudflare.com",
     "IMMANENT_TECH_WEB_ENVIRONMENT": "production",
-    "IMMANENT_TECH_WEB_VERSION": "v0.0.1",
+    "IMMANENT_TECH_WEB_VERSION": "v0.6.0",
   },
   // Container image — built and pushed to Cloudflare's registry
   "containers": [
