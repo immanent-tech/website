@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.6.0](https://github.com/immanent-tech/website/compare/v0.5.0...v0.6.0) (2026-06-12)
+
+
+### Features
+
+* ✨ add a contact form ([5b2c61f](https://github.com/immanent-tech/website/commit/5b2c61f188aa12e821e0531cc39e1e1f0f105b6d))
+* ✨ improved config loading ([fab4eee](https://github.com/immanent-tech/website/commit/fab4eeec5824299f0a8ff307d2da10aab4956ed3))
+* **content:** ✨ add new logo, icon and wordmarks ([a52d3db](https://github.com/immanent-tech/website/commit/a52d3dbdab2bcba55cfa4217a04f6c11c81c6695))
+* **middlewares:** ✨ reworked cors/csp middlewares ([e441922](https://github.com/immanent-tech/website/commit/e44192287e1ee59488bdd0d06d167301aa94f1c6))
+* **server:** ✨ improved server config ([cdb6929](https://github.com/immanent-tech/website/commit/cdb6929f579d908a7ed7ccea0d5586a0486ef6d4))
+* **web/content:** ➕ add additional image assets ([974872d](https://github.com/immanent-tech/website/commit/974872d3337cf6e01f871740d72babfa3f669530))
+* **web/templates:** ✨ improved template layouts ([ae2d874](https://github.com/immanent-tech/website/commit/ae2d8748ef01220a30b44b7e5fdc84c99e227c92))
+
 ## [0.5.0](https://github.com/immanent-tech/website/compare/v0.4.0...v0.5.0) (2026-04-08)
 
 
