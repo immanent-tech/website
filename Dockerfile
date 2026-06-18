@@ -45,7 +45,7 @@ RUN go build -ldflags="-s -w -X github.com/immanent-tech/www-immanent-tech/confi
 # compress binary with upx
 RUN upx --best --lzma webserver
 
-FROM docker.io/alpine:3.24.0@sha256:a2d49ea686c2adfe3c992e47dc3b5e7fa6e6b5055609400dc2acaeb241c829f4 AS server
+FROM docker.io/alpine:3.24.1@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS server
 
 ENV IMMANENT_TECH_WEB_CONTAINER=1
 
