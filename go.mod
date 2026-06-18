@@ -3,15 +3,14 @@ module github.com/immanent-tech/www-immanent-tech
 go 1.26
 
 require (
+	github.com/cwinters8/gomap v0.2.0
 	github.com/knadh/koanf/v2 v2.3.5
 	github.com/mattn/go-isatty v0.0.22
 	github.com/sebasvil20/templicons v1.1.0
-	golang.org/x/net v0.55.0
 )
 
 require (
 	github.com/aymerick/douceur v0.2.0 // indirect
-	github.com/cwinters8/gomap v0.2.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.13 // indirect
 	github.com/go-http-utils/fresh v0.0.0-20161124030543-7231e26a4b27 // indirect
 	github.com/go-http-utils/headers v0.0.0-20181008091004-fed159eddc2a // indirect
@@ -28,9 +27,10 @@ require (
 	github.com/samber/slog-common v0.21.0 // indirect
 	go.opentelemetry.io/otel v1.29.0 // indirect
 	go.opentelemetry.io/otel/trace v1.29.0 // indirect
-	golang.org/x/crypto v0.52.0 // indirect
-	golang.org/x/sys v0.45.0 // indirect
-	golang.org/x/text v0.37.0 // indirect
+	golang.org/x/crypto v0.53.0 // indirect
+	golang.org/x/net v0.56.0 // indirect
+	golang.org/x/sys v0.46.0 // indirect
+	golang.org/x/text v0.38.0 // indirect
 )
 
 require (
