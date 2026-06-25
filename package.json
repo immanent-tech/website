@@ -20,7 +20,7 @@
     "tailwindcss-visibility": "^1.0.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260611.1",
+    "@cloudflare/workers-types": "^4.20260617.1",
     "@prettier/plugin-xml": "^3.4.2",
     "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.20",
