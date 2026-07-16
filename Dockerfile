@@ -1,8 +1,8 @@
 # Copyright 2025 Joshua Rich <joshua.rich@gmail.com>.
 # SPDX-License-Identifier: 	AGPL-3.0-or-later
 
-ARG ALPINE_VERSION=3.23.4@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11
-ARG GOLANG_VERSION=1.26.3-alpine-3.23@sha256:91eda9776261207ea25fd06b5b7fed8d397dd2c0a283e77f2ab6e91bfa71079d
+ARG ALPINE_VERSION=3.24.1@sha256:79ff19e9084a00eece421b2523fb93e22d730e2c0e525905de047e848e56d95f
+ARG GOLANG_VERSION=1.26.5-alpine3.24@sha256:111d79159b2326f7e80c4a4706e1ba166acb0e2611df853955f3621828cd49e8
 
 # Copy go from official image.
 # https://hub.docker.com/_/golang
@@ -26,6 +26,7 @@ RUN apk add libstdc++ upx npm
 
 # Copy and download dependency using go mod.
 COPY go.mod go.sum ./
+COPY base/go.mod base/go.sum ./base/
 RUN go mod download
 
 # Copy source.
@@ -40,14 +41,12 @@ EOF
 
 # Set necessary environment variables and build your project.
 ENV CGO_ENABLED=0
-RUN go build -ldflags="-s -w -X github.com/immanent-tech/www-immanent-tech/config.Version=$APPVERSION" -o webserver
+RUN go build -ldflags="-s -w" -o webserver
 
 # compress binary with upx
 RUN upx --best --lzma webserver
 
-FROM docker.io/alpine:3.24.0@sha256:a2d49ea686c2adfe3c992e47dc3b5e7fa6e6b5055609400dc2acaeb241c829f4 AS server
-
-ENV IMMANENT_TECH_WEB_CONTAINER=1
+FROM --platform=$BUILDPLATFORM docker.io/alpine:${ALPINE_VERSION} AS server
 
 # Add labels.
 LABEL org.opencontainers.image.source=https://github.com/immanent-tech/website
@@ -74,4 +73,4 @@ USER imtech
 
 # Set entry point.
 ENTRYPOINT ["/webserver"]
-CMD ["serve", "--no-log-file"]
+CMD ["serve"]

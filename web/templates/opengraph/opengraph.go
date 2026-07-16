@@ -4,11 +4,10 @@
 package opengraph
 
 import (
-	"os"
 	"slices"
 
 	"github.com/a-h/templ"
-	"github.com/immanent-tech/www-immanent-tech/config"
+	"github.com/immanent-tech/go-base/config"
 )
 
 // Metadata represents the default opengraph metadata properties used by the app on pages.
@@ -25,19 +24,19 @@ type Metadata struct {
 func NewMetadata(options ...Option) *Metadata {
 	metadata := &Metadata{
 		Title: Property{
-			Value: config.AppName,
+			Value: config.GetAppName(),
 		},
 		ObjectType: Property{
 			Value: "website",
 		},
 		URL: Property{
-			Value: os.Getenv(config.EnvPrefix + "BASEURL"),
+			Value: config.GetBaseURL(),
 		},
 		Image: Property{
-			Value: os.Getenv(config.EnvPrefix+"BASEURL") + "/content/logo-color.webp",
+			Value: config.GetBaseURL() + "/content/logo-color.webp",
 		},
 		Description: Property{
-			Value: config.AppDescription,
+			Value: config.GetAppDescription(),
 		},
 	}
 	for option := range slices.Values(options) {

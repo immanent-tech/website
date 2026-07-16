@@ -10,12 +10,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/immanent-tech/www-immanent-tech/config"
-	"github.com/immanent-tech/www-immanent-tech/validation"
+	"github.com/immanent-tech/go-base/config"
+	"github.com/immanent-tech/go-base/validation"
 )
 
 const (
-	serverConfigEnvPrefix   = config.EnvPrefix
+	configEnvPrefix         = "WWW"
 	defaultCompressionLevel = 5
 )
 
@@ -23,44 +23,27 @@ var compressMimetypes = []string{"text/html", "text/css", "text/javascript", "fo
 
 var cfg = Config{
 	Host:         "0.0.0.0",
-	ReadTimeout:  "120s",
-	WriteTimeout: "30s",
-	IdleTimeout:  "900s",
-}
-
-type timeout string
-
-func (t timeout) Validate() error {
-	if _, err := time.ParseDuration(string(t)); err != nil {
-		return fmt.Errorf("parse timeout: %w", err)
-	}
-	return nil
-}
-
-func (t timeout) Duration() time.Duration {
-	duration, err := time.ParseDuration(string(t))
-	if err != nil {
-		return time.Minute
-	}
-	return duration
+	ReadTimeout:  config.NewDuration(120 * time.Second),
+	WriteTimeout: config.NewDuration(30 * time.Second),
+	IdleTimeout:  config.NewDuration(900 * time.Second),
 }
 
 // Config contains the server configuration options.
 type Config struct {
-	Port         uint64  `koanf:"port"         validate:"port"`
-	Host         string  `koanf:"host"         validate:"hostname|fqdn|ip"`
-	CertFile     string  `koanf:"crt"          validate:"omitempty,file"`
-	KeyFile      string  `koanf:"key"          validate:"omitempty,file"`
-	ReadTimeout  timeout `koanf:"readtimeout"  validate:"required,validateFn"`
-	WriteTimeout timeout `koanf:"writetimeout" validate:"required,validateFn"`
-	IdleTimeout  timeout `koanf:"idletimeout"  validate:"required,validateFn"`
+	Port         uint64          `koanf:"port"         validate:"port"`
+	Host         string          `koanf:"host"         validate:"hostname|fqdn|ip"`
+	CertFile     string          `koanf:"crt"          validate:"omitempty,file"`
+	KeyFile      string          `koanf:"key"          validate:"omitempty,file"`
+	ReadTimeout  config.Duration `koanf:"readtimeout"  validate:"required"`
+	WriteTimeout config.Duration `koanf:"writetimeout" validate:"required"`
+	IdleTimeout  config.Duration `koanf:"idletimeout"  validate:"required"`
 }
 
 // loadConfigOnce loads the server configuration and ensures this is only done
 // one time, no matter how many times it is called.
 var loadConfigOnce = sync.OnceValue(func() error {
 	// Load server config.
-	if err := config.Load(serverConfigEnvPrefix, &cfg); err != nil {
+	if err := config.Load(configEnvPrefix, &cfg); err != nil {
 		return fmt.Errorf("load server environment: %w", err)
 	}
 	// Load additional environment variables.

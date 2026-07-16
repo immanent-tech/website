@@ -11,15 +11,13 @@ import (
 
 	"github.com/alecthomas/kong"
 
+	"github.com/immanent-tech/go-base/config"
+	"github.com/immanent-tech/go-base/logging"
 	"github.com/immanent-tech/www-immanent-tech/cli"
-	"github.com/immanent-tech/www-immanent-tech/config"
-	"github.com/immanent-tech/www-immanent-tech/logging"
 )
 
 // CLI contains all of the commands and common options.
 var CLI struct {
-	logging.Options
-
 	Serve        cli.ServeCmd         `cmd:"" help:"Run server."`
 	ProfileFlags logging.ProfileFlags `name:"profile" help:"Set profiling flags."`
 }
@@ -33,24 +31,18 @@ func init() {
 	gid := syscall.Getgid()
 
 	if uid != euid || gid != egid || uid == 0 {
-		slog.Error(config.AppName + " should not be run with additional privileges or as root.")
+		slog.Error(config.GetAppName() + " should not be run with additional privileges or as root.")
 		os.Exit(-1)
 	}
 }
 
 func main() {
-	kong.Name(config.AppName)
-	kong.Description(config.AppDescription)
+	kong.Name(config.GetAppName())
+	kong.Description(config.GetAppDescription())
 
 	cmd := kong.Parse(&CLI, kong.Bind())
 
-	logger := logging.New(logging.Options{LogLevel: CLI.LogLevel, NoLogFile: CLI.NoLogFile})
-
-	if err := config.Init(); err != nil {
-		slog.Error("Could not initialize config.",
-			slog.Any("error", err))
-		os.Exit(-1)
-	}
+	logger := logging.New()
 
 	// Enable profiling if requested.
 	if CLI.ProfileFlags != nil {

@@ -13,7 +13,7 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/immanent-tech/www-immanent-tech/config"
+	"github.com/immanent-tech/go-base/config"
 	"github.com/immanent-tech/www-immanent-tech/models"
 	"github.com/immanent-tech/www-immanent-tech/web/templates/htmx"
 	"github.com/immanent-tech/www-immanent-tech/web/templates/opengraph"
@@ -137,7 +137,7 @@ type PageOption func(*PageTemplate)
 
 func WithPageTitle(title string) PageOption {
 	return func(p *PageTemplate) {
-		p.Title = title + " | " + config.AppName
+		p.Title = title + " | " + config.GetAppName()
 	}
 }
 
@@ -176,8 +176,8 @@ func Page(template templ.Component, options ...PageOption) templ.Component {
 		ctx = templ.ClearChildren(ctx)
 		p := &PageTemplate{
 			Component:   template,
-			Title:       config.AppName,
-			Description: config.AppDescription,
+			Title:       config.GetAppName(),
+			Description: config.GetAppDescription(),
 			OGMetadata:  opengraph.NewMetadata(),
 		}
 
@@ -241,9 +241,9 @@ func Page(template templ.Component, options ...PageOption) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var9 string
-			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.ResolveAttributeValue(os.Getenv(config.EnvPrefix + "UMAMI_ID"))
+			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.ResolveAttributeValue(os.Getenv("UMAMI_ID"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/templates.templ`, Line: 92, Col: 115}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/templates.templ`, Line: 92, Col: 96}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var9)
 			if templ_7745c5c3_Err != nil {

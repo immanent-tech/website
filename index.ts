@@ -4,22 +4,26 @@ import { env } from 'cloudflare:workers'
 // The Go backend container
 export class ImmanentTech extends Container {
   envVars = {
-    IMMANENT_TECH_WEB_ENVIRONMENT: env.IMMANENT_TECH_WEB_ENVIRONMENT,
-    IMMANENT_TECH_WEB_LOGLEVEL: env.IMMANENT_TECH_WEB_LOGLEVEL,
-    IMMANENT_TECH_WEB_PORT: env.IMMANENT_TECH_WEB_PORT,
-    IMMANENT_TECH_WEB_BASEURL: env.IMMANENT_TECH_WEB_BASEURL,
-    IMMANENT_TECH_WEB_CSP_SCRIPTSRC: env.IMMANENT_TECH_WEB_CSP_SCRIPTSRC,
-    IMMANENT_TECH_WEB_CSP_FRAMESRC: env.IMMANENT_TECH_WEB_CSP_FRAMESRC,
-    IMMANENT_TECH_WEB_CSP_CONNECTSRC: env.IMMANENT_TECH_WEB_CSP_CONNECTSRC,
-    IMMANENT_TECH_WEB_CORS_ALLOWEDORIGINS:
-      env.IMMANENT_TECH_WEB_CORS_ALLOWEDORIGINS,
-    IMMANENT_TECH_WEB_UMAMI_ID: env.IMMANENT_TECH_WEB_UMAMI_ID,
+    LOG_LEVEL: env.LOG_LEVEL,
+    WWW_PORT: env.WWW_PORT,
+    APP_NAME: env.APP_NAME,
+    APP_DESCRIPTION: env.APP_DESCRIPTION,
+    APP_ID: env.APP_ID,
+    APP_VERSION: env.APP_VERSION,
+    APP_ENVIRONMENT: env.APP_ENVIRONMENT,
+    APP_BASEURL: env.APP_BASEURL,
+    CSP_SCRIPTSRC: env.CSP_SCRIPTSRC,
+    CSP_FRAMESRC: env.CSP_FRAMESRC,
+    CSP_CONNECTSRC: env.CSP_CONNECTSRC,
+    CORS_ALLOWEDORIGINS: env.CORS_ALLOWEDORIGINS,
+    CORS_MAXAGE: env.CORS_MAXAGE,
+    UMAMI_ID: env.UMAMI_ID,
     CLOUDFLARE_TURNSTILE_KEY: env.CLOUDFLARE_TURNSTILE_KEY,
     FASTMAIL_APIKEY: env.FASTMAIL_APIKEY,
     FASTMAIL_IDENTITY: env.FASTMAIL_IDENTITY,
   }
 
-  defaultPort = env.IMMANENT_TECH_WEB_PORT // Port your Go app listens on
+  defaultPort = env.WWW_PORT // Port your Go app listens on
 
   override sleepAfter = '2m' // Keep warm for 10 minutes after last request
 
@@ -44,7 +48,7 @@ export default {
   ): Promise<Response> {
     try {
       // Get (or start) the singleton container instance
-      const id = env.GO_BACKEND.idFromName('www')
+      const id = env.GO_BACKEND.idFromName('www-immanenttech')
       const container = env.GO_BACKEND.get(id)
 
       // Forward the request as-is to the container

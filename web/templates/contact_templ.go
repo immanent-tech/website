@@ -13,7 +13,7 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/immanent-tech/www-immanent-tech/config"
+	"github.com/immanent-tech/go-base/config"
 	"github.com/immanent-tech/www-immanent-tech/web/helpers/mailto"
 	"github.com/immanent-tech/www-immanent-tech/web/templates/partials"
 	"os"

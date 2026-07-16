@@ -11,9 +11,9 @@ import (
 	"strings"
 
 	"github.com/a-h/templ"
+	"github.com/immanent-tech/go-base/validation"
 	"github.com/immanent-tech/www-immanent-tech/providers/fastmail"
 	"github.com/immanent-tech/www-immanent-tech/server/forms"
-	"github.com/immanent-tech/www-immanent-tech/validation"
 	"github.com/immanent-tech/www-immanent-tech/web/templates"
 	slogctx "github.com/veqryn/slog-context"
 )

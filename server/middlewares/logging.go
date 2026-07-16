@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/immanent-tech/www-immanent-tech/logging"
+	"github.com/immanent-tech/go-base/logging"
 	slogchi "github.com/samber/slog-chi"
 	slogctx "github.com/veqryn/slog-context"
 )
@@ -22,7 +22,7 @@ var configureLogging = sync.OnceValue(func() slogchi.Config {
 			slogchi.IgnorePathContains("/content", "/favicon"),
 		},
 	}
-	switch logging.Level {
+	switch logging.GetLogLevel() {
 	case logging.LevelTrace:
 		cfg.WithRequestBody = true
 		cfg.WithResponseBody = true

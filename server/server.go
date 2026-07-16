@@ -16,12 +16,14 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/justinas/nosurf"
 	slogctx "github.com/veqryn/slog-context"
 
 	"github.com/immanent-tech/www-immanent-tech/server/handlers"
 	"github.com/immanent-tech/www-immanent-tech/server/middlewares"
 	"github.com/immanent-tech/www-immanent-tech/web"
+
+	"github.com/immanent-tech/go-base/server/middlewares/etag"
+	"github.com/immanent-tech/go-base/server/middlewares/security"
 )
 
 const (
@@ -54,15 +56,15 @@ func Start(logger *slog.Logger) error {
 		middleware.RequestID,
 		middlewares.Logger,
 		middleware.Recoverer,
-		middlewares.SetupCORS,
-		middlewares.CrossOriginProtection,
-		middlewares.ContentSecurityPolicy,
-		middlewares.GeneralSecurity,
-		middlewares.SaveCSRFToken,
-		// middlewares.RateLimit(rateLimiter),
+		security.SetupCORS,
+		security.ContentSecurityPolicy,
+		security.GeneralSecurity,
+		security.CrossOriginProtection,
+		security.GeneralSecurity,
+		security.PreventCSRF,
 		middleware.Compress(defaultCompressionLevel, compressMimetypes...),
 		middleware.StripSlashes,
-		middlewares.Etag,
+		etag.Etag,
 		middlewares.SetupHTMX,
 	)
 
@@ -75,7 +77,7 @@ func Start(logger *slog.Logger) error {
 	// Public facing routes.
 	router.Group(func(r chi.Router) {
 		r.Use(
-			middlewares.Etag,
+			etag.Etag,
 		)
 		r.Get("/", handlers.NewLandingPage())
 		r.Get("/work", handlers.NewWorkPage())
@@ -83,17 +85,14 @@ func Start(logger *slog.Logger) error {
 		r.Post("/contact", handlers.HandleSubmitContact())
 	})
 
-	csrfRouter := nosurf.New(router)
-	csrfRouter.SetFailureHandler(middlewares.CSRFError())
-
 	svr := &http.Server{
 		Protocols:         new(http.Protocols),
 		Handler:           router,
 		Addr:              net.JoinHostPort(cfg.Host, strconv.FormatUint(cfg.Port, 10)),
-		ReadHeaderTimeout: cfg.ReadTimeout.Duration(),
-		ReadTimeout:       cfg.ReadTimeout.Duration(),
-		WriteTimeout:      cfg.WriteTimeout.Duration(),
-		IdleTimeout:       cfg.IdleTimeout.Duration(),
+		ReadHeaderTimeout: cfg.ReadTimeout.Duration,
+		ReadTimeout:       cfg.ReadTimeout.Duration,
+		WriteTimeout:      cfg.WriteTimeout.Duration,
+		IdleTimeout:       cfg.IdleTimeout.Duration,
 		BaseContext: func(_ net.Listener) context.Context {
 			return ctx
 		},
@@ -104,9 +103,9 @@ func Start(logger *slog.Logger) error {
 
 	logger.Info("Starting server...",
 		slog.String("address", svr.Addr),
-		slog.Duration("read_timeout", cfg.ReadTimeout.Duration()),
-		slog.Duration("write_timeout", cfg.WriteTimeout.Duration()),
-		slog.Duration("idle_timeout", cfg.IdleTimeout.Duration()),
+		slog.Duration("read_timeout", cfg.ReadTimeout.Duration),
+		slog.Duration("write_timeout", cfg.WriteTimeout.Duration),
+		slog.Duration("idle_timeout", cfg.IdleTimeout.Duration),
 		slog.Time("start_time", time.Now()),
 	)
 

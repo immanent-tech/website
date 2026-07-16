@@ -9,8 +9,8 @@ import (
 	"sync"
 
 	"github.com/cwinters8/gomap"
-	"github.com/immanent-tech/www-immanent-tech/config"
-	"github.com/immanent-tech/www-immanent-tech/validation"
+	"github.com/immanent-tech/go-base/config"
+	"github.com/immanent-tech/go-base/validation"
 )
 
 const (

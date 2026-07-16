@@ -10,7 +10,7 @@ import (
 
 	"github.com/didip/tollbooth/v8"
 	"github.com/didip/tollbooth/v8/limiter"
-	"github.com/immanent-tech/www-immanent-tech/config"
+	"github.com/immanent-tech/go-base/config"
 	"github.com/realclientip/realclientip-go"
 	slogctx "github.com/veqryn/slog-context"
 )

@@ -3,7 +3,7 @@
 
 package templates
 
-import "github.com/immanent-tech/www-immanent-tech/config"
+import "github.com/immanent-tech/go-base/config"
 
 // NotFound renders a layout appropriate to use for a 404 response.
 templ NotFound() {
@@ -19,7 +19,7 @@ templ NotFound() {
 				<a role="button" href="/" class="btn btn-primary">
 					Home
 				</a>
-				<a role="button" href={ "mailto:support@immanent.tech&subject=" + config.AppName } class="btn btn-primary">
+				<a role="button" href={ "mailto:support@immanent.tech&subject=" + config.GetAppName() } class="btn btn-primary">
 					Email Us
 				</a>
 			</div>
