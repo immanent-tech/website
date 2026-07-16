@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/immanent-tech/website/compare/v0.6.0...v0.7.0) (2026-07-16)
+
+
+### Features
+
+* ♻️ switch to using go-base ([5aa57ae](https://github.com/immanent-tech/website/commit/5aa57ae225eea48e051d47ae67f1c3a216d6423e))
+
 ## [0.6.0](https://github.com/immanent-tech/website/compare/v0.5.0...v0.6.0) (2026-06-12)
 
 
