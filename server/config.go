@@ -5,8 +5,6 @@ package server
 
 import (
 	"fmt"
-	"os"
-	"strconv"
 	"sync"
 	"time"
 
@@ -15,7 +13,7 @@ import (
 )
 
 const (
-	configEnvPrefix         = "WWW"
+	configEnvPrefix         = "WWW_"
 	defaultCompressionLevel = 5
 )
 
@@ -30,13 +28,13 @@ var cfg = Config{
 
 // Config contains the server configuration options.
 type Config struct {
-	Port         uint64          `koanf:"port"         validate:"port"`
-	Host         string          `koanf:"host"         validate:"hostname|fqdn|ip"`
+	Port         uint64          `koanf:"port"         validate:"required,port"`
+	Host         string          `koanf:"host"         validate:"omitempty,hostname|fqdn|ip"`
 	CertFile     string          `koanf:"crt"          validate:"omitempty,file"`
 	KeyFile      string          `koanf:"key"          validate:"omitempty,file"`
-	ReadTimeout  config.Duration `koanf:"readtimeout"  validate:"required"`
-	WriteTimeout config.Duration `koanf:"writetimeout" validate:"required"`
-	IdleTimeout  config.Duration `koanf:"idletimeout"  validate:"required"`
+	ReadTimeout  config.Duration `koanf:"readtimeout"  validate:"omitempty"`
+	WriteTimeout config.Duration `koanf:"writetimeout" validate:"omitempty"`
+	IdleTimeout  config.Duration `koanf:"idletimeout"  validate:"omitempty"`
 }
 
 // loadConfigOnce loads the server configuration and ensures this is only done
@@ -45,14 +43,6 @@ var loadConfigOnce = sync.OnceValue(func() error {
 	// Load server config.
 	if err := config.Load(configEnvPrefix, &cfg); err != nil {
 		return fmt.Errorf("load server environment: %w", err)
-	}
-	// Load additional environment variables.
-	if os.Getenv("PORT") != "" {
-		if port, err := strconv.ParseUint(os.Getenv("PORT"), 10, 64); err != nil {
-			return fmt.Errorf("load port: %w", err)
-		} else {
-			cfg.Port = port
-		}
 	}
 
 	if err := validation.Validate.Struct(cfg); err != nil {
