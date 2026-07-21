@@ -25,7 +25,7 @@ export class ImmanentTech extends Container {
 
   defaultPort = env.WWW_PORT // Port your Go app listens on
 
-  override sleepAfter = '2m' // Keep warm for 10 minutes after last request
+  override sleepAfter = '2m' // Keep warm for 2 minutes after last request
 
   override onStart() {
     console.log('Go backend container started')
