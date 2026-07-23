@@ -26,6 +26,7 @@
     "CSP_SCRIPTSRC": "'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net cloud.umami.is static.cloudflareinsights.com challenges.cloudflare.com",
     "CSP_CONNECTSRC": "'self' *.foragd.app foragd.app  cdn.jsdelivr.net cloudflareinsights.com gateway.umami.is api-gateway.umami.dev",
     "CSP_FRAMESRC": "challenges.cloudflare.com",
+    "CSP_IMGSRC": "'self' data: https://opengraph.githubassets.com",
     "UMAMI_ID": "e420d8f8-506f-4703-b00c-2a70b87b26ea",
     "CORS_ALLOWEDORIGINS": "https://cloud.umami.is,https://static.cloudflareinsights.com,https://cdn.jsdelivr.net",
     "CORS_MAXAGE": "600",
