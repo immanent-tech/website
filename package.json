@@ -24,6 +24,7 @@
     "@prettier/plugin-xml": "^3.4.2",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
+    "esbuild": "^0.28.1",
     "prettier": "^3.9.5",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
@@ -32,11 +33,11 @@
     "wrangler": "^4.111.0"
   },
   "scripts": {
-    "build:prod": "parcel build --no-source-maps",
-    "build:dev": "parcel build --no-optimize",
+    "server:run": "air -c air.toml",
+    "dev:css": "tailwindcss -i ./web/assets/styles.css -o ./web/content/styles.css",
+    "prod:css": "tailwindcss -i ./web/assets/styles.css -o ./web/content/styles.css --minify",
+    "dev:js": "esbuild ./web/assets/scripts.js --bundle --outfile=./web/content/scripts.js",
+    "prod:js": "esbuild ./web/assets/scripts.js --bundle --minify --outfile=./web/content/scripts.js",
     "templ:generate": "go run github.com/a-h/templ/cmd/templ@latest generate -path web"
-  },
-  "@parcel/resolver-default": {
-    "packageExports": true
   }
 }

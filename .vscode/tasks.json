@@ -6,7 +6,7 @@
         {
             "label": "Server: Run",
             "type": "shell",
-            "command": "air -c air.toml",
+            "command": "dotenv -f .env.development run npm run server:run",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
