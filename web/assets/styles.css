@@ -7,7 +7,6 @@
 @plugin "tailwindcss-visibility";
 @plugin "daisyui" {
   themes: light, dark, synthwave;
-  exclude: properties;
 }
 
 :root {
