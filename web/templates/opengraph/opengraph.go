@@ -36,7 +36,7 @@ func NewMetadata(options ...Option) *Metadata {
 			Value: config.GetBaseURL() + "/content/logo-color.webp",
 		},
 		Description: Property{
-			Value: config.GetAppDescription(),
+			Value: "Website of Immanent Tech",
 		},
 	}
 	for option := range slices.Values(options) {

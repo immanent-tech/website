@@ -177,7 +177,7 @@ func Page(template templ.Component, options ...PageOption) templ.Component {
 		p := &PageTemplate{
 			Component:   template,
 			Title:       config.GetAppName(),
-			Description: config.GetAppDescription(),
+			Description: "Website of Immanent Tech",
 			OGMetadata:  opengraph.NewMetadata(),
 		}
 

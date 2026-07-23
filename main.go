@@ -38,7 +38,7 @@ func init() {
 
 func main() {
 	kong.Name(config.GetAppName())
-	kong.Description(config.GetAppDescription())
+	kong.Description("Website of Immanent Tech")
 
 	cmd := kong.Parse(&CLI, kong.Bind())
 
