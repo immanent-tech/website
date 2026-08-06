@@ -30,7 +30,7 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "release-please": "^17.10.4",
     "typescript": "^7.0.2",
-    "wrangler": "^4.113.0"
+    "wrangler": "^4.115.0"
   },
   "scripts": {
     "server:run": "air -c air.toml",
