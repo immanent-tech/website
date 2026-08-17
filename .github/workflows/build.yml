@@ -1,4 +1,4 @@
-name: Build and Deploy to Google Artifact Registry
+name: 🏗️ Build and Deploy to Google Artifact Registry
 
 on:
   push:
@@ -141,3 +141,50 @@ jobs:
             ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Sign image (keyless, via GitHub OIDC)
+        env:
+          TAGS: |
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.sha_short }}
+            ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          DIGEST: ${{ steps.build.outputs.digest }}
+        run: |
+          images=""
+          for tag in ${TAGS}; do
+            images+="${tag%%:*}@${DIGEST} "
+          done
+          cosign sign --yes ${images}
+
+      - name: Generate SBOM with Syft
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
+        with:
+          image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+          format: cyclonedx-json
+          output-file: sbom.cyclonedx.json
+
+      - name: Attest SBOM with cosign
+        env:
+          CONTAINER: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+        run: |
+          cosign attest --yes \
+            --predicate sbom.cyclonedx.json \
+            --type cyclonedx \
+            ${CONTAINER}
+
+      # -----------------------------------------------------------------------
+      - name: Print cosign verify command
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+          REPO: ${{ github.repository }}
+          CONTAINER: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+        run: |
+          echo ""
+          echo "╔══════════════════════════════════════════════════════════════╗"
+          echo "║  Verify this image with:                                     ║"
+          echo "╚══════════════════════════════════════════════════════════════╝"
+          echo ""
+          echo "  cosign verify \\"
+          echo "    --certificate-identity-regexp=\"https://github.com/${REPO}/\" \\"
+          echo "    --certificate-oidc-issuer=\"https://token.actions.githubusercontent.com\" \\"
+          echo "    ${CONTAINER}"
+          echo ""
