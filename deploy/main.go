@@ -17,9 +17,9 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
 
+//nolint:funlen
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-
 		cfg := config.New(ctx, "")
 		projectID := cfg.Require("projectId")
 		region := cfg.Require("region")
@@ -115,7 +115,7 @@ func main() {
 			"%s-docker.pkg.dev/%s/%s/%s:%s",
 			region,
 			projectID,
-			repoOwner,
+			projectID,
 			repoName,
 			config.Require(ctx, "version"),
 		)
@@ -168,6 +168,7 @@ func main() {
 								cloudrunServiceEnv("APP_ID", nil),
 								cloudrunServiceEnv("APP_ENVIRONMENT", nil),
 								cloudrunServiceEnv("LOG_LEVEL", nil),
+								cloudrunServiceEnv("WWW_PORT", nil),
 								// CSP.
 								cloudrunServiceEnv("CSP_CONNECTSRC", nil),
 								cloudrunServiceEnv("CSP_IMGSRC", nil),
