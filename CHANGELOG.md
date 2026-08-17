@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.8.0](https://github.com/immanent-tech/website/compare/v0.7.0...v0.8.0) (2026-08-17)
+
+
+### Features
+
+* **deploy:** ✨ add deployment via pulumi to gcp ([6eae221](https://github.com/immanent-tech/website/commit/6eae22194cb32a569a6aadc1c8a89fde66291559))
+* **landing:** ✨ add an rainbow aura around icon ([4b04038](https://github.com/immanent-tech/website/commit/4b0403818cf6590f37a3c8d2370cef651f00c75e))
+
+
+### Bug Fixes
+
+* 🔧 fix envrionment variables ([edc89d7](https://github.com/immanent-tech/website/commit/edc89d7e455dfb75598a59dd28d7d680f451a25d))
+* 🗑️ remove config.GetAppDescription usage ([9f77465](https://github.com/immanent-tech/website/commit/9f7746534352d25844c1057e9bbdb5cc3e60db7d))
+
 ## [0.7.0](https://github.com/immanent-tech/website/compare/v0.6.0...v0.7.0) (2026-07-16)
 
 
