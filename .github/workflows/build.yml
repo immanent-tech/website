@@ -8,6 +8,7 @@ on:
 
 env:
   PROJECT_ID: www-immanent-tech
+  PROJECT_NUMBER: 183485210178
   REGION: us-east1
   REPOSITORY: www-immmanent-tech
   IMAGE_NAME: website
@@ -108,7 +109,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
+          workload_identity_provider: projects/${{ env.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github_pool/providers/github_provider
           service_account: gh-actions-deployer@your-gcp-project-id.iam.gserviceaccount.com
 
       - name: Set up Cloud SDK
