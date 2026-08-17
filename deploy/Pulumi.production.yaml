@@ -1,0 +1,6 @@
+config:
+  pulumi:tags:
+    pulumi:template: container-gcp-go
+  gcp:project: www-immanent-tech
+environment:
+  - website/production
