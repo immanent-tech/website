@@ -1,36 +1,25 @@
 {
-  "source": [
-    "web/assets/scripts.js",
-    "web/assets/styles.css"
-  ],
   "targets": {
     "default": {
       "distDir": "web/content"
     }
   },
   "dependencies": {
-    "@cloudflare/containers": "^0.3.7",
     "@tailwindcss/cli": "^4.3.3",
     "daisyui": "^5.7.17",
     "htmx.org": "^2.0.10",
     "hyperscript.org": "^0.9.93",
     "parcel": "^2.16.4",
     "tailwindcss": "^4.3.3",
-    "tailwindcss-safe-area": "^1.3.0",
-    "tailwindcss-visibility": "^1.0.3"
+    "tailwindcss-safe-area": "^1.3.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20260816.1",
-    "@prettier/plugin-xml": "^3.4.2",
-    "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
     "esbuild": "^0.28.2",
     "prettier": "^3.9.6",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "release-please": "^17.11.1",
-    "typescript": "^7.0.2",
-    "wrangler": "^4.123.0"
+    "release-please": "^17.11.1"
   },
   "scripts": {
     "server:run": "air -c air.toml",

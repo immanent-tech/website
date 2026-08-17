@@ -34,8 +34,11 @@
         {
             "label": "Server: Deploy",
             "type": "shell",
-            "command": "wrangler deploy",
+            "command": "dotenv -f ../.env.development run -- pulumi up",
             "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/deploy"
+            }
         },
     ],
     "inputs": [

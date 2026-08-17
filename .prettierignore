@@ -1,2 +1,2 @@
-static/
-
+web/content/
+**/*_templ.go
