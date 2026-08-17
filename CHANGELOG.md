@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/immanent-tech/website/compare/v0.8.0...v0.8.1) (2026-08-17)
+
+
+### Bug Fixes
+
+* **deploy:** ➕ add port env var to server ([0657d1d](https://github.com/immanent-tech/website/commit/0657d1d680d6a52dd219674559020f9c413040a1))
+
 ## [0.8.0](https://github.com/immanent-tech/website/compare/v0.7.0...v0.8.0) (2026-08-17)
 
 
