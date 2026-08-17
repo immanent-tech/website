@@ -10,7 +10,7 @@ env:
   PROJECT_ID: www-immanent-tech
   PROJECT_NUMBER: 183485210178
   REGION: us-east1
-  REPOSITORY: www-immmanent-tech
+  REPOSITORY: www-immanent-tech
   IMAGE_NAME: website
 
 permissions:
