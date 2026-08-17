@@ -9,6 +9,10 @@ updates:
       prefix: "build(go): ⬆️"
     cooldown:
         default-days: 7
+    groups:
+      monthly-batch:
+        patterns:
+          - '*'
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
@@ -19,6 +23,10 @@ updates:
       prefix: "ci(github): ⬆️"
     cooldown:
         default-days: 7
+    groups:
+      monthly-batch:
+        patterns:
+          - '*'
 
   # Enable version updates for npm
   - package-ecosystem: "npm"
@@ -31,6 +39,10 @@ updates:
       prefix: "build(npm): ⬆️"
     cooldown:
         default-days: 7
+    groups:
+      monthly-batch:
+        patterns:
+          - '*'
 
   # Enable version updates for Docker
   - package-ecosystem: "docker"
@@ -43,3 +55,7 @@ updates:
       prefix: "build(container): ⬆️"
     cooldown:
         default-days: 7
+    groups:
+      monthly-batch:
+        patterns:
+          - '*'
