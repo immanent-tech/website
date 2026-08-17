@@ -4,7 +4,7 @@ services:
       - .env
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ../base/.devcontainer/alpine.Dockerfile
     volumes:
       - ..:/workspace:cached
       - /etc/localtime:/etc/localtime:ro,cached

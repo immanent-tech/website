@@ -20,7 +20,7 @@
     "APP_DESCRIPTION": "Website for Immmanent Tech",
     "APP_ID": "tech.immanent",
     "APP_BASEURL": "https://immanent.tech",
-    "APP_VERSION": "v0.7.0",
+    "APP_VERSION": "v0.8.0",
     "APP_ENVIRONMENT": "production",
     "WWW_PORT": "7001",
     "CSP_SCRIPTSRC": "'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net cloud.umami.is static.cloudflareinsights.com challenges.cloudflare.com",
@@ -35,7 +35,8 @@
   "containers": [
     {
       "class_name": "ImmanentTech",
-      "image": "./Dockerfile", // path to your Go app's Dockerfile
+      "image": "registry.cloudflare.com/a7b4bca74bbe27fdd0064952ff80a5b1/www-immanenttech:0.8.0",
+      // "image": "./Dockerfile", // path to your Go app's Dockerfile
       "max_instances": 3, // scale up to 5 concurrent containers
     }
   ],
