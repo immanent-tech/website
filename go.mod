@@ -33,6 +33,7 @@ require (
 	github.com/clipperhouse/uax29/v2 v2.7.0 // indirect
 	github.com/cloudflare/circl v1.6.3 // indirect
 	github.com/danieljoos/wincred v1.2.3 // indirect
+	github.com/deckarep/golang-set/v2 v2.5.0 // indirect
 	github.com/djherbis/times v1.5.0 // indirect
 	github.com/ebitengine/purego v0.10.2 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
@@ -144,7 +145,7 @@ require (
 	github.com/fatih/color v1.19.0 // indirect
 	github.com/go-chi/chi/v5 v5.3.2
 	github.com/go-json-experiment/json v0.0.0-20260623181947-01eb4420fa68 // indirect
-	github.com/go-playground/form/v4 v4.3.1
+	github.com/go-playground/form/v4 v4.5.0
 	github.com/go-playground/validator/v10 v10.30.3 // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/immanent-tech/go-base v0.0.0
@@ -154,8 +155,8 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.27 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
-	github.com/pulumi/pulumi-gcp/sdk/v9 v9.36.1
-	github.com/pulumi/pulumi/sdk/v3 v3.259.0
+	github.com/pulumi/pulumi-gcp/sdk/v9 v9.37.0
+	github.com/pulumi/pulumi/sdk/v3 v3.261.0
 	github.com/realclientip/realclientip-go v1.0.0
 	github.com/samber/slog-chi v1.19.1
 	github.com/samber/slog-multi v1.8.0 // indirect
